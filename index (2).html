@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swati Jha — Product Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #080C12;
+  --bg2: #0D1117;
+  --bg3: #111620;
+  --bg4: #161C28;
+  --line: rgba(255,255,255,0.06);
+  --line2: rgba(255,255,255,0.10);
+  --ink: #EEF2F8;
+  --muted: rgba(238,242,248,0.42);
+  --faint: rgba(238,242,248,0.06);
+  --accent: #4D9EFF;
+  --accent-dim: rgba(77,158,255,0.10);
+  --accent-dim2: rgba(77,158,255,0.04);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Jost', sans-serif; font-weight: 300; background: var(--bg); color: var(--ink); overflow-x: hidden; cursor: none; }
+
+.cursor { position: fixed; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; }
+.cursor-ring { position: fixed; width: 28px; height: 28px; border: 0.5px solid rgba(77,158,255,0.3); border-radius: 50%; pointer-events: none; z-index: 9998; transition: width 0.2s, height 0.2s, border-color 0.2s; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 3.5rem; border-bottom: 0.5px solid var(--line); background: rgba(8,12,18,0.96); backdrop-filter: blur(24px); }
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; font-style: italic; color: var(--ink); text-decoration: none; }
+.nav-links { display: flex; align-items: center; gap: 2.75rem; }
+.nav-links a { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 400; color: var(--muted); text-decoration: none; transition: color 0.25s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { padding: 0.5rem 1.4rem; border: 0.5px solid var(--line2) !important; color: var(--ink) !important; transition: border-color 0.25s, color 0.25s !important; }
+.nav-cta:hover { border-color: var(--accent) !important; color: var(--accent) !important; }
+
+.ticker { background: var(--accent); padding: 0.5rem 0; overflow: hidden; white-space: nowrap; margin-top: 64px; }
+.ticker-track { display: inline-flex; animation: ticker 30s linear infinite; }
+.ticker-track span { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(8,12,18,0.6); padding: 0 2.25rem; font-weight: 500; }
+.ticker-track span.b { color: rgba(8,12,18,0.9); }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+.hero { min-height: 100vh; padding: 4rem 3.5rem 4rem; display: grid; grid-template-rows: auto 1fr auto; position: relative; overflow: hidden; }
+.hero-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 72px 72px; pointer-events: none; }
+.hero-glow { position: absolute; bottom: -5%; left: 50%; transform: translateX(-50%); width: 700px; height: 350px; background: radial-gradient(ellipse, rgba(77,158,255,0.06) 0%, transparent 70%); pointer-events: none; }
+
+.hero-top { display: flex; align-items: center; justify-content: space-between; }
+.hero-badge { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); border: 0.5px solid var(--line2); padding: 0.45rem 1.1rem; font-weight: 400; }
+.hero-status { display: flex; align-items: center; gap: 0.6rem; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+.status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: blink 2.5s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.hero-center { display: flex; flex-direction: column; justify-content: center; padding: 4rem 0 2rem; }
+.hero-eyebrow { font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; font-weight: 400; }
+.hero-name { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 7vw, 7.5rem); font-weight: 300; line-height: 1.0; letter-spacing: -0.02em; }
+.hero-name .it { font-style: italic; color: var(--accent); }
+.hero-tagline { margin-top: 2.5rem; font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.85; max-width: 500px; }
+.hero-tagline strong { color: var(--ink); font-weight: 400; }
+
+.hero-bottom { display: grid; grid-template-columns: repeat(3,1fr); border-top: 0.5px solid var(--line); }
+.hb-item { padding: 2rem 0; border-right: 0.5px solid var(--line); padding-right: 2.5rem; }
+.hb-item:not(:first-child) { padding-left: 2.5rem; }
+.hb-item:last-child { border-right: none; }
+.hb-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+.hb-val { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 400; color: var(--ink); font-style: italic; }
+.hb-sub { font-size: 12px; color: var(--muted); margin-top: 0.2rem; }
+
+.about { padding: 7rem 3.5rem; background: var(--bg2); border-top: 0.5px solid var(--line); display: grid; grid-template-columns: 1fr 1.65fr; gap: 7rem; align-items: start; }
+.about-left { position: sticky; top: 8rem; }
+.sec-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-weight: 400; }
+.sec-label::before { content: ''; width: 18px; height: 0.5px; background: var(--accent); }
+.sec-title { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 2.5rem; }
+.sec-title em { font-style: italic; color: var(--accent); }
+.role-list { border-top: 0.5px solid var(--line); }
+.role-item { padding: 0.9rem 0; border-bottom: 0.5px solid var(--line); font-size: 12px; color: var(--muted); letter-spacing: 0.06em; display: flex; align-items: center; justify-content: space-between; transition: color 0.2s; }
+.role-item:hover { color: var(--ink); }
+.role-item span { color: var(--accent); font-size: 10px; }
+.about-right p { font-size: 0.975rem; line-height: 2.0; color: var(--muted); margin-bottom: 1.5rem; font-weight: 300; }
+.about-right p strong { color: var(--ink); font-weight: 400; }
+.about-right p em { color: var(--accent); font-style: normal; }
+
+.skills-ticker { border-top: 0.5px solid var(--line); border-bottom: 0.5px solid var(--line); padding: 1.1rem 0; overflow: hidden; background: var(--bg3); }
+.st-track { display: inline-flex; animation: marquee2 22s linear infinite; white-space: nowrap; }
+.st-track span { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); padding: 0 2.5rem; font-weight: 400; }
+.st-track span.lit { color: var(--ink); }
+@keyframes marquee2 { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+.work { padding: 7rem 3.5rem; background: var(--bg); }
+.work-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; }
+.work-num { font-family: 'Playfair Display', serif; font-size: 6rem; font-weight: 300; color: var(--faint); line-height: 1; font-style: italic; }
+.work-category { display:flex; align-items:center; gap:1.5rem; margin-bottom:0; }
+.wcat-label { font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); white-space:nowrap; font-weight:400; }
+.wcat-line { flex:1; height:0.5px; background:var(--line); }
+.wrow { display: grid; grid-template-columns: 55px 1fr 210px 150px 36px; align-items: center; gap: 2.5rem; padding: 2rem 0; border-bottom: 0.5px solid var(--line); text-decoration: none; color: inherit; transition: background 0.25s; position: relative; cursor: none; }
+.wrow::after { content: ''; position: absolute; bottom: -0.5px; left: 0; width: 0; height: 0.5px; background: var(--accent); transition: width 0.4s ease; }
+.wrow:hover::after { width: 100%; }
+.wrow:hover { background: var(--accent-dim2); }
+.wrow:hover .wrow-n { color: var(--accent); }
+.wrow:hover .wrow-arrow { transform: translate(3px,-3px); color: var(--accent); }
+.wrow-soon { cursor: default; opacity: 0.5; }
+.wrow-soon::after { display: none; }
+.wrow-soon:hover { background: transparent; }
+.wrow-n { font-family: 'Playfair Display', serif; font-size: 0.85rem; font-style: italic; color: var(--muted); font-weight: 300; }
+.wrow-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 400; color: var(--ink); margin-bottom:0.3rem; }
+.wrow-sub { font-size: 11px; color: var(--muted); letter-spacing:0.03em; line-height:1.5; }
+.wrow-desc { font-size: 12px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+.wrow-tag { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); border: 0.5px solid var(--line2); padding: 0.3rem 0.85rem; display: inline-block; }
+.wrow-arrow { font-size: 1rem; color: var(--muted); transition: transform 0.2s, color 0.2s; }
+
+.metrics { background: var(--accent); padding: 4rem 3.5rem; display: grid; grid-template-columns: repeat(4,1fr); }
+.metric-item { padding-right: 3rem; border-right: 1px solid rgba(8,12,18,0.12); }
+.metric-item:last-child { border-right: none; padding-right: 0; padding-left: 3rem; }
+.metric-item:not(:first-child) { padding-left: 3rem; }
+.metric-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 300; color: var(--bg); line-height: 1; margin-bottom: 0.35rem; font-style: italic; }
+.metric-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(8,12,18,0.5); font-weight: 400; }
+
+.skills { padding: 7rem 3.5rem; background: var(--bg2); border-top: 0.5px solid var(--line); }
+.skills-grid { display: grid; grid-template-columns: repeat(3,1fr); border-top: 0.5px solid var(--line); border-left: 0.5px solid var(--line); margin-top: 4rem; }
+.skill-col { padding: 3rem 2.75rem; border-right: 0.5px solid var(--line); border-bottom: 0.5px solid var(--line); }
+.skill-col-title { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; font-weight: 400; }
+.skill-list { display: flex; flex-direction: column; gap: 0.8rem; }
+.skill-item { font-size: 13px; color: var(--muted); line-height: 1.55; font-weight: 300; display: flex; align-items: flex-start; gap: 0.75rem; transition: color 0.2s; }
+.skill-item:hover { color: var(--ink); }
+.skill-item::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: var(--accent); opacity: 0.4; flex-shrink: 0; margin-top: 7px; }
+
+.exp { padding: 7rem 3.5rem; background: var(--bg3); border-top: 0.5px solid var(--line); }
+.exp-list { border-top: 0.5px solid var(--line); margin-top: 4rem; }
+.exp-item { display: grid; grid-template-columns: 200px 1fr; gap: 5rem; padding: 3.5rem 0; border-bottom: 0.5px solid var(--line); }
+.exp-period { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+.exp-period .now { color: var(--accent); }
+.exp-co { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+.exp-role { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 400; margin-bottom: 0.3rem; color: var(--ink); }
+.exp-company { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; font-weight: 400; }
+.exp-points { display: flex; flex-direction: column; gap: 0.65rem; }
+.exp-point { font-size: 13px; color: var(--muted); display: flex; align-items: flex-start; gap: 1rem; line-height: 1.7; font-weight: 300; }
+.exp-point::before { content: '—'; color: var(--accent); opacity: 0.45; flex-shrink: 0; font-size: 10px; margin-top: 3px; }
+
+.contact { padding: 8rem 3.5rem; background: var(--bg); border-top: 0.5px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.contact-big { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.75rem; }
+.contact-big em { font-style: italic; color: var(--accent); }
+.contact-sub { font-size: 0.975rem; color: var(--muted); line-height: 1.85; max-width: 360px; font-weight: 300; }
+.clinks { border-top: 0.5px solid var(--line); }
+.clink { display: flex; align-items: center; justify-content: space-between; padding: 2rem 0; border-bottom: 0.5px solid var(--line); text-decoration: none; color: var(--ink); transition: padding-left 0.3s; cursor: none; }
+.clink:hover { padding-left: 1.25rem; }
+.clink:hover .cl-val { color: var(--accent); }
+.clink:hover .cl-arr { color: var(--accent); transform: translate(3px,-3px); }
+.cl-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+.cl-val { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; font-style: italic; transition: color 0.25s; }
+.cl-arr { color: var(--muted); transition: color 0.25s, transform 0.25s; font-size: 1rem; }
+
+footer { padding: 2.5rem 3.5rem; border-top: 0.5px solid var(--line); display: flex; align-items: center; justify-content: space-between; background: var(--bg2); }
+.fn { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 300; font-style: italic; color: var(--muted); }
+.fn strong { color: var(--accent); font-style: normal; font-weight: 400; }
+.fc { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+.fade-up { opacity: 0; transform: translateY(16px); transition: opacity 0.75s ease, transform 0.75s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .hero, .about, .work, .skills, .exp, .contact { padding: 4rem 1.5rem; }
+  .hero-bottom { grid-template-columns: 1fr 1fr; }
+  .about { grid-template-columns: 1fr; gap: 3rem; }
+  .about-left { position: static; }
+  .wrow { grid-template-columns: 36px 1fr 32px; gap: 1rem; }
+  .wrow-desc, .wrow-tag { display: none; }
+  .metrics { grid-template-columns: 1fr 1fr; padding: 3rem 1.5rem; gap: 2.5rem; }
+  .metric-item { border: none; padding: 0; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .exp-item { grid-template-columns: 1fr; gap: 1.25rem; }
+  .contact { grid-template-columns: 1fr; gap: 3rem; }
+  footer { padding: 2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Swati Jha</a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact" class="nav-cta">Let's Talk</a>
+  </div>
+</nav>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="b">Product Management</span><span>·</span>
+    <span>Brand Strategy</span><span>·</span>
+    <span class="b">Consumer Insights</span><span>·</span>
+    <span>AI Products</span><span>·</span>
+    <span class="b">Go-to-Market</span><span>·</span>
+    <span>Storytelling</span><span>·</span>
+    <span class="b">Growth</span><span>·</span>
+    <span>User Research</span><span>·</span>
+    <span class="b">Product Management</span><span>·</span>
+    <span>Brand Strategy</span><span>·</span>
+    <span class="b">Consumer Insights</span><span>·</span>
+    <span>AI Products</span><span>·</span>
+    <span class="b">Go-to-Market</span><span>·</span>
+    <span>Storytelling</span><span>·</span>
+    <span class="b">Growth</span><span>·</span>
+    <span>User Research</span><span>·</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-top fade-up">
+    <span class="hero-badge">Associate Product Manager · AI Cybersecurity</span>
+    <div class="hero-status"><span class="status-dot"></span>Open to new roles</div>
+  </div>
+  <div class="hero-center">
+    <div class="hero-eyebrow fade-up">Product · Brand · Strategy</div>
+    <h1 class="hero-name fade-up">
+      <div>Swati</div>
+      <div class="it">Jha.</div>
+    </h1>
+    <p class="hero-tagline fade-up">A Product Manager who bridges <strong>rigorous product thinking</strong> with <strong>brand storytelling</strong> — building for consumers, shipping with intent.</p>
+  </div>
+  <div class="hero-bottom fade-up">
+    <div class="hb-item">
+      <div class="hb-label">Currently at</div>
+      <div class="hb-val">DefenXee</div>
+      <div class="hb-sub">Associate PM</div>
+    </div>
+        <div class="hb-item">
+      <div class="hb-label">Location</div>
+      <div class="hb-val">Pune</div>
+      <div class="hb-sub">Open to remote & relocation</div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="about-left">
+    <div class="sec-label fade-up">About</div>
+    <h2 class="sec-title fade-up">PM who thinks<br>in <em>stories</em></h2>
+    <div class="role-list fade-up">
+      <div class="role-item">Product Management <span>→</span></div>
+      <div class="role-item">Brand Strategy <span>→</span></div>
+      <div class="role-item">Consumer Growth <span>→</span></div>
+      <div class="role-item">AI Products <span>→</span></div>
+    </div>
+  </div>
+  <div class="about-right">
+    <p class="fade-up">I'm a Product Manager with a Computer Science background and a genuine obsession with consumer behaviour. Currently building at an <strong>AI cybersecurity company named DefenXee </strong> — where I've learned what it means to earn user trust inside a complex, high-stakes product.</p>
+    <p class="fade-up">Before that, I interned at <strong>Quilr AI</strong> as a Product Management Intern, where I built an AI Release Notes Generator using Java, Spring Boot and the Claude API — shipping something real, talking to real users, learning to move fast without breaking things.</p>
+    <p class="fade-up">What sets me apart: I hold a <em>product lens</em> and a <em>brand lens</em> at the same time. I care about what a feature does and what it communicates — because in consumer products, both matter equally.</p>
+    <p class="fade-up">I'm looking for my next role at companies where <strong>speed, storytelling, and user obsession</strong> are the culture.</p>
+  </div>
+</section>
+
+<div class="skills-ticker">
+  <div class="st-track">
+    <span class="lit">PRD Writing</span><span>·</span><span>User Research</span><span>·</span><span class="lit">Brand Strategy</span><span>·</span><span>Roadmapping</span><span>·</span><span class="lit">Consumer Insights</span><span>·</span><span>Agile & Sprints</span><span>·</span><span class="lit">GTM Strategy</span><span>·</span><span>Storytelling</span><span>·</span><span class="lit">AI Products</span><span>·</span><span>A/B Testing</span><span>·</span>
+    <span class="lit">PRD Writing</span><span>·</span><span>User Research</span><span>·</span><span class="lit">Brand Strategy</span><span>·</span><span>Roadmapping</span><span>·</span><span class="lit">Consumer Insights</span><span>·</span><span>Agile & Sprints</span><span>·</span><span class="lit">GTM Strategy</span><span>·</span><span>Storytelling</span><span>·</span><span class="lit">AI Products</span><span>·</span><span>A/B Testing</span><span>·</span>
+  </div>
+</div>
+
+<section id="work" class="work">
+  <div class="work-header">
+    <div>
+      <div class="sec-label fade-up">Selected Work</div>
+      <h2 class="sec-title fade-up">Case Studies, Teardowns<br>& <em>Real Projects</em></h2>
+    </div>
+    <div class="work-num fade-up">06</div>
+  </div>
+
+  <!-- CATEGORY LABEL: REAL WORK -->
+  <div class="work-category fade-up">
+    <span class="wcat-label">Real Work Experience</span>
+    <span class="wcat-line"></span>
+  </div>
+  <div class="work-list fade-up">
+    <a href="quilr-work-experience.html" class="wrow">
+      <div class="wrow-n">i.</div>
+      <div>
+        <div class="wrow-title">Quilr AI — PM Internship</div>
+        <div class="wrow-sub">Built AI Release Notes Generator · Supademo user guides · Competitive analysis · Product docs</div>
+      </div>
+      <div class="wrow-desc">RAG-based AI system using Java Spring Boot + Claude API. Reduced manual documentation by 70–80%. Covers 58 repos, 123K+ commits.</div>
+      <div class="wrow-tag">Real Work · AI Product</div>
+      <div class="wrow-arrow">↗</div>
+    </a>
+  </div>
+
+  <!-- CATEGORY LABEL: CASE STUDIES -->
+  <div class="work-category fade-up" style="margin-top:2.5rem;">
+    <span class="wcat-label">Case Studies</span>
+    <span class="wcat-line"></span>
+  </div>
+  <div class="work-list fade-up">
+    <a href="netflix-casestudy-v3.html" class="wrow">
+      <div class="wrow-n">ii.</div>
+      <div>
+        <div class="wrow-title">Netflix India — Product Strategy</div>
+        <div class="wrow-sub">16M → 25M subscribers in 24 months · Pricing · Relevance · Household fit</div>
+      </div>
+      <div class="wrow-desc">Full strategy with funnel analysis, chaos engineering deep dive, PM metrics dashboard with real DAU/MAU data, and 6 product innovations.</div>
+      <div class="wrow-tag">Case Study · Consumer · AI</div>
+      <div class="wrow-arrow">↗</div>
+    </a>
+    <a href="linkedin-feature-enhancement.html" class="wrow">
+      <div class="wrow-n">iii.</div>
+      <div>
+        <div class="wrow-title">LinkedIn — Feature Enhancement</div>
+        <div class="wrow-sub">5 features · Interest Feed · Job Search · Application Groups · Creator Channels · Network Intelligence</div>
+      </div>
+      <div class="wrow-desc">Full funnel analysis of 1.3B user platform. Five PM-grounded feature proposals with experiment designs, metrics and roadmap sequencing.</div>
+      <div class="wrow-tag">Feature Enhancement · B2C</div>
+      <div class="wrow-arrow">↗</div>
+    </a>
+  </div>
+
+  <!-- CATEGORY LABEL: TEARDOWNS -->
+  <div class="work-category fade-up" style="margin-top:2.5rem;">
+    <span class="wcat-label">Product Teardowns</span>
+    <span class="wcat-line"></span>
+  </div>
+  <div class="work-list fade-up">
+    <a href="nykaa-teardown.html" class="wrow">
+      <div class="wrow-n">iv.</div>
+      <div>
+        <div class="wrow-title">Nykaa — PM + Brand Teardown</div>
+        <div class="wrow-sub">Trust architecture · 3 personas · Competitive vs Purplle & Tira · 5 PM recommendations</div>
+      </div>
+      <div class="wrow-desc">10-chapter teardown covering product strategy, strengths, gaps, tech stack, and full metrics breakdown for each recommendation.</div>
+      <div class="wrow-tag">PM + Brand · Beauty</div>
+      <div class="wrow-arrow">↗</div>
+    </a>
+  </div>
+
+  <!-- CATEGORY LABEL: BRAND -->
+  <div class="work-category fade-up" style="margin-top:2.5rem;">
+    <span class="wcat-label">Brand Strategy</span>
+    <span class="wcat-line"></span>
+  </div>
+  <div class="work-list fade-up">
+    <a href="maybelline-skyhigh-campaign-pink.html" class="wrow">
+      <div class="wrow-n">v.</div>
+      <div>
+        <div class="wrow-title">Maybelline Sky High — Campaign Concept</div>
+        <div class="wrow-sub">"Sky High. Aur Usse Bhi Upar." · Smriti Mandhana · Gen Z + Working Woman · 4 executions</div>
+      </div>
+      <div class="wrow-desc">Full campaign for L'Oréal India — hero film, OOH, creator strategy, social challenge. Targeting two distinct Indian women with one shared sky.</div>
+      <div class="wrow-tag">Brand Campaign · L'Oréal</div>
+      <div class="wrow-arrow">↗</div>
+    </a>
+  </div>
+
+  <!-- COMING SOON -->
+  <div class="work-category fade-up" style="margin-top:2.5rem;">
+    <span class="wcat-label">Coming Soon</span>
+    <span class="wcat-line"></span>
+  </div>
+  <div class="work-list fade-up">
+    <div class="wrow wrow-soon">
+      <div class="wrow-n">vi.</div>
+      <div>
+        <div class="wrow-title" style="color:var(--muted);">Zomato — Growth & Retention Analysis</div>
+        <div class="wrow-sub" style="color:rgba(238,242,248,0.2);">User funnel · Churn levers · Feature recommendations · India market depth</div>
+      </div>
+      <div class="wrow-desc">Deep dive into Zomato's user retention mechanics, funnel drop-offs, and growth opportunities for the Indian quick commerce market.</div>
+      <div class="wrow-tag" style="color:rgba(238,242,248,0.2);border-color:rgba(238,242,248,0.08);">In Progress</div>
+      <div class="wrow-arrow" style="color:rgba(238,242,248,0.15);">→</div>
+    </div>
+  </div>
+</section>
+
+<div class="metrics fade-up">
+  <div class="metric-item"><div class="metric-num">5</div><div class="metric-label">Portfolio pieces — real work + case studies</div></div>
+  <div class="metric-item"><div class="metric-num">6 Months</div><div class="metric-label">in Product — B2B(SaaS)</div></div>
+  <div class="metric-item"><div class="metric-num">4</div><div class="metric-label">Domains — PM · Brand · AI · Security</div></div>
+  <div class="metric-item"><div class="metric-num">B2C</div><div class="metric-label">Ready & Focused</div></div>
+</div>
+
+<section id="skills" class="skills">
+  <div class="sec-label fade-up">Capabilities</div>
+  <h2 class="sec-title fade-up">What I bring<br>to the <em>table</em></h2>
+  <div class="skills-grid fade-up">
+    <div class="skill-col">
+      <div class="skill-col-title">Product & Execution</div>
+      <div class="skill-list">
+        <div class="skill-item">Product roadmapping & PRD writing</div>
+        <div class="skill-item">User research & interviews</div>
+        <div class="skill-item">Agile & sprint management</div>
+        <div class="skill-item">Feature prioritisation (RICE, MoSCoW)</div>
+       
+        <div class="skill-item">Success metrics & KPI definition</div>
+        <div class="skill-item">Stakeholder alignment</div>
+      </div>
+    </div>
+    <div class="skill-col">
+      <div class="skill-col-title">Brand & Strategy</div>
+      <div class="skill-list">
+        <div class="skill-item">Brand positioning & messaging</div>
+        <div class="skill-item">Consumer insight & personas</div>
+        <div class="skill-item">Go-to-market strategy</div>
+        <div class="skill-item">Competitive landscape analysis</div>
+        <div class="skill-item">India market & consumer culture</div>
+        <div class="skill-item">Campaign concept development</div>
+        <div class="skill-item">Trend & cultural research</div>
+      </div>
+    </div>
+    <div class="skill-col">
+      <div class="skill-col-title">Tech & Tools</div>
+      <div class="skill-list">
+        <div class="skill-item">Java · Spring Boot · REST APIs</div>
+        <div class="skill-item">Claude Vision API integration</div>
+        <div class="skill-item">SQL · MySQL · AWS basics</div>
+        <div class="skill-item">Loveable · wireframing</div>
+        <div class="skill-item">HTML · CSS · Supademo</div>
+        <div class="skill-item">GitHub · VS Code · IntelliJ</div>
+              </div>
+    </div>
+  </div>
+</section>
+
+<section class="exp">
+  <div class="sec-label fade-up">Experience</div>
+  <h2 class="sec-title fade-up">Where I've<br><em>worked</em></h2>
+  <div class="exp-list fade-up">
+    <div class="exp-item">
+      <div>
+        <div class="exp-period"><span class="now">Present</span></div>
+        <div class="exp-co">DefenXee</div>
+      </div>
+      <div>
+        <div class="exp-role">Associate Product Manager</div>
+        <div class="exp-company">AI Cybersecurity Company · Pune</div>
+        <div class="exp-points">
+          <div class="exp-point">Owning product roadmap and PRDs for core security product features</div>
+          <div class="exp-point">Running user research and translating insights into sprint-ready requirements</div>
+          <div class="exp-point">Collaborating with engineering and design to ship features end-to-end</div>
+          <div class="exp-point">Applying UX and brand thinking to simplify complex security workflows</div>
+        </div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">Oct 2025- March-2026</div>
+        <div class="exp-co">Quilr AI</div>
+      </div>
+      <div>
+        <div class="exp-role">Product Management Intern</div>
+        <div class="exp-company">Quilr AI</div>
+        <div class="exp-points">
+          <div class="exp-point">Built an AI Release Notes Generator using Java Spring Boot and the Claude API</div>
+          <div class="exp-point">Conducted user interviews with developers to define requirements and success criteria</div>
+          <div class="exp-point">Managed the full product lifecycle from ideation through to deployment</div>
+          <div class="exp-point">Reduced manual documentation effort through AI-driven automation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="fade-up">
+    <div class="contact-big">Let's build<br>something<br><em>together.</em></div>
+    <p class="contact-sub">Actively exploring full-time PM roles at consumer-first companies. If you're building something ambitious — I'd love to be part of it.</p>
+  </div>
+  <div class="clinks fade-up">
+    <a href="mailto:jhaswati806@gmail.com" class="clink">
+      <div><div class="cl-label">Email</div><div class="cl-val">jhaswati806@gmail.com</div></div>
+      <span class="cl-arr">↗</span>
+    </a>
+    <a href="https://www.linkedin.com/in/swati-jha-59ab40284" target="_blank" class="clink">
+      <div><div class="cl-label">LinkedIn</div><div class="cl-val">linkedin.com/in/swati-jha</div></div>
+      <span class="cl-arr">↗</span>
+    </a>
+    <a href="#work" class="clink">
+      <div><div class="cl-label">Portfolio</div><div class="cl-val">View case studies</div></div>
+      <span class="cl-arr">↗</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span class="fn">Swati <strong>Jha</strong></span>
+  <span class="fc">© 2026 · Product · Brand · Strategy</span>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.transform=`translate(${mx-3}px,${my-3}px)`;});
+(function animRing(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.transform=`translate(${rx-14}px,${ry-14}px)`;requestAnimationFrame(animRing);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='44px';ring.style.height='44px';ring.style.borderColor='rgba(77,158,255,0.65)';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='28px';ring.style.height='28px';ring.style.borderColor='rgba(77,158,255,0.3)';});
+});
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*70);});},{threshold:0.07});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

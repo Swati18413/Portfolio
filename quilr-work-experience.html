@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quilr AI — Work Experience · Swati Jha</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#FAFAF8;
+  --bg2:#F4F3EF;
+  --bg3:#ECEAE4;
+  --ink:#141210;
+  --ink2:#26221C;
+  --body:#3A342C;
+  --muted:#7A7060;
+  --border:#DDD9D0;
+  --border2:#C8C2B6;
+  --accent:#1A1A1A;
+  --purple:#6B4FBB;
+  --purple-light:#F0ECFA;
+  --purple-border:rgba(107,79,187,0.2);
+  --green:#2A7A4B;
+  --green-light:#EBF5F0;
+  --green-border:rgba(42,122,75,0.2);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;font-weight:400;background:var(--bg);color:var(--body);line-height:1.8;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 4rem;border-bottom:1px solid var(--border);background:rgba(250,250,248,0.97);backdrop-filter:blur(16px);}
+.nav-left{display:flex;align-items:center;gap:2rem;}
+.nav-back{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:var(--accent);}
+.nav-divider{width:1px;height:16px;background:var(--border2);}
+.nav-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-style:italic;color:var(--ink2);}
+.nav-tag{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--body);background:var(--bg3);padding:0.3rem 0.85rem;border:1px solid var(--border2);}
+
+/* COVER */
+.cover{padding:8rem 4rem 5rem;max-width:900px;margin:0 auto;border-bottom:1px solid var(--border);}
+.cover-meta{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap;}
+.cm-tag{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);}
+.cm-sep{color:var(--border2);}
+.cover-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:500;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1.75rem;}
+.cover-title em{font-style:italic;color:var(--purple);}
+.cover-deck{font-size:1.05rem;line-height:1.9;color:var(--muted);max-width:680px;margin-bottom:3rem;}
+.cover-deck strong{color:var(--body);font-weight:500;}
+.cover-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);background:var(--bg2);}
+.cs-item{padding:1.5rem 1.75rem;border-right:1px solid var(--border);}
+.cs-item:last-child{border-right:none;}
+.cs-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;}
+.cs-val{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--ink2);}
+.cs-sub{font-size:11px;color:var(--muted);margin-top:0.15rem;}
+
+/* TOC */
+.toc{padding:2.5rem 4rem;background:var(--bg2);border-bottom:1px solid var(--border);}
+.toc-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:160px 1fr;gap:3rem;align-items:start;}
+.toc-heading{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);}
+.toc-list{display:grid;grid-template-columns:1fr 1fr;gap:0.35rem 3rem;}
+.toc-item{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:0.65rem;text-decoration:none;transition:color 0.2s;}
+.toc-item:hover{color:var(--accent);}
+.toc-num{font-family:'Playfair Display',serif;font-style:italic;font-size:0.85rem;color:var(--border2);}
+
+/* ARTICLE */
+.article{max-width:900px;margin:0 auto;padding:0 4rem;}
+
+/* SECTION */
+.section{padding:5rem 0;border-bottom:1px solid var(--border);}
+.section:last-child{border-bottom:none;}
+.sec-eyebrow{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--purple);display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;}
+.sec-eyebrow::before{content:'';width:20px;height:1px;background:var(--purple);}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;line-height:1.2;color:var(--ink);letter-spacing:-0.01em;margin-bottom:2rem;}
+.sec-title em{font-style:italic;color:var(--purple);}
+
+/* PROSE */
+p.prose{font-size:0.975rem;line-height:1.95;color:var(--body);margin-bottom:1.5rem;}
+p.prose strong{color:var(--ink2);font-weight:600;}
+p.prose em{color:var(--purple);font-style:normal;}
+.prose-lead{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;line-height:1.75;color:var(--ink2);margin-bottom:2rem;padding-left:1.5rem;border-left:3px solid var(--purple);}
+
+/* SUBSECTION */
+.subsection{margin:2.5rem 0;}
+.sub-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;color:var(--ink2);margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+.sub-title em{font-style:italic;color:var(--purple);}
+
+/* HIGHLIGHT BOXES */
+.insight-box{background:var(--purple-light);border:1px solid var(--purple-border);border-left:3px solid var(--purple);padding:1.25rem 1.75rem;margin:1.5rem 0;}
+.ib-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--purple);margin-bottom:0.4rem;font-weight:500;}
+.ib-text{font-size:13px;color:var(--body);line-height:1.7;}
+.ib-text strong{color:var(--ink2);font-weight:600;}
+
+.impact-box{background:var(--green-light);border:1px solid var(--green-border);border-left:3px solid var(--green);padding:1.25rem 1.75rem;margin:1.5rem 0;}
+.imp-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--green);margin-bottom:0.4rem;font-weight:500;}
+.imp-text{font-size:13px;color:var(--body);line-height:1.7;}
+.imp-text strong{color:var(--ink2);font-weight:600;}
+
+/* TECH STACK ROW */
+.tech-row{display:flex;flex-wrap:wrap;gap:8px;margin:1.5rem 0;}
+.tech-pill{font-size:11px;padding:0.35rem 1rem;border:1px solid var(--border2);color:var(--body);background:var(--bg2);letter-spacing:0.04em;}
+.tech-pill.primary{background:var(--purple-light);border-color:var(--purple-border);color:var(--purple);}
+
+/* SCREENSHOT */
+.screenshot-block{margin:3rem 0;}
+.sb-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem;}
+.sb-label::before{content:'';width:12px;height:1px;background:var(--border2);}
+.screenshot-img{width:100%;border:1px solid var(--border);display:block;}
+.screenshot-caption{font-size:12px;color:var(--muted);margin-top:0.75rem;font-style:italic;line-height:1.6;}
+
+.screenshot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:3rem 0;}
+.sg-item{}
+.sg-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
+.sg-img{width:100%;border:1px solid var(--border);display:block;}
+.sg-caption{font-size:11px;color:var(--muted);margin-top:0.5rem;font-style:italic;line-height:1.5;}
+
+/* TRANSFORMATION EXAMPLE */
+.transform-block{border:1px solid var(--border);margin:2.5rem 0;background:var(--bg);}
+.tb-header{background:var(--bg2);padding:1.25rem 2rem;border-bottom:1px solid var(--border);}
+.tb-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:var(--ink2);}
+.tb-body{padding:0;display:grid;grid-template-columns:1fr 1fr;}
+.tb-col{padding:2rem;}
+.tb-col:first-child{border-right:1px solid var(--border);}
+.tbc-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;font-weight:500;}
+.tbc-item{font-size:13px;color:var(--body);line-height:1.65;padding:0.65rem 0.85rem;background:var(--bg2);border:1px solid var(--border);margin-bottom:6px;font-family:monospace;}
+.tbc-item.out{background:var(--green-light);border-color:var(--green-border);color:var(--ink2);font-family:'Inter',sans-serif;}
+
+/* ARCHITECTURE FLOW */
+.arch-flow{display:flex;flex-direction:column;gap:0;margin:2.5rem 0;border:1px solid var(--border);}
+.af-step{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--border);}
+.af-step:last-child{border-bottom:none;}
+.af-left{padding:1.5rem 1.75rem;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center;}
+.af-layer{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--purple);margin-bottom:0.25rem;font-weight:500;}
+.af-name{font-size:13px;font-weight:600;color:var(--ink2);}
+.af-right{padding:1.5rem 2rem;}
+.af-desc{font-size:13px;color:var(--body);line-height:1.7;}
+.af-desc strong{color:var(--ink2);font-weight:600;}
+
+/* COMPETITOR TABLE */
+.comp-table{width:100%;border-collapse:collapse;margin:2rem 0;}
+.comp-table th{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);padding:0.85rem 1.25rem;text-align:left;border-bottom:2px solid var(--border2);background:var(--bg2);font-weight:500;}
+.comp-table td{padding:1.1rem 1.25rem;border-bottom:1px solid var(--border);color:var(--body);line-height:1.6;vertical-align:top;font-size:13px;}
+.comp-table tr:hover td{background:var(--bg2);}
+.comp-tag{font-size:10px;color:var(--purple);font-weight:500;display:block;margin-top:0.25rem;}
+
+/* IMPACT ROW */
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);margin:2rem 0;}
+.ig-item{padding:1.75rem 1.5rem;border-right:1px solid var(--border);text-align:center;}
+.ig-item:last-child{border-right:none;}
+.ig-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;font-style:italic;color:var(--purple);line-height:1;margin-bottom:0.35rem;}
+.ig-label{font-size:11px;color:var(--muted);line-height:1.5;}
+
+/* CONTRIBUTION NAV */
+.contrib-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);margin:2.5rem 0;background:var(--bg2);}
+.cn-item{padding:1.5rem 1.5rem;border-right:1px solid var(--border);text-align:center;}
+.cn-item:last-child{border-right:none;}
+.cn-num{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--purple);margin-bottom:0.4rem;}
+.cn-title{font-size:12px;font-weight:500;color:var(--ink2);line-height:1.4;}
+
+/* SYNTHESIS */
+.synthesis{background:var(--ink2);padding:3rem 3.5rem;margin:3rem 0;}
+.syn-label{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1rem;}
+.syn-text{font-family:'Playfair Display',serif;font-size:1.15rem;font-style:italic;line-height:1.75;color:rgba(255,255,255,0.85);}
+.syn-text strong{color:#fff;font-style:normal;}
+
+/* CLOSING */
+.closing{padding:5rem 4rem 6rem;max-width:900px;margin:0 auto;}
+.closing-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:500;line-height:1.2;color:var(--ink);margin-bottom:1.5rem;}
+.closing-title em{font-style:italic;color:var(--purple);}
+.closing-quote{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;line-height:1.8;color:var(--ink2);border-left:3px solid var(--purple);padding:1.5rem 2rem;background:var(--purple-light);margin-top:2rem;}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;}
+.fn{font-family:'Playfair Display',serif;font-size:0.9rem;font-style:italic;color:var(--muted);}
+.fn strong{color:var(--purple);font-style:normal;}
+.fc{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+
+/* FADE */
+.fade-up{opacity:0;transform:translateY(14px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:800px){
+  nav,footer,.closing{padding:1rem 1.5rem;}
+  .cover{padding:6rem 1.5rem 3rem;}
+  .article{padding:0 1.5rem;}
+  .toc{padding:2rem 1.5rem;}
+  .toc-inner,.toc-list,.cover-stats,.impact-grid,.contrib-nav,.screenshot-grid{grid-template-columns:1fr;}
+  .cs-item,.ig-item,.cn-item{border-right:none;border-bottom:1px solid var(--border);}
+  .tb-body{grid-template-columns:1fr;}
+  .tb-col:first-child{border-right:none;border-bottom:1px solid var(--border);}
+  .af-step{grid-template-columns:1fr;}
+  .af-left{border-right:none;border-bottom:1px solid var(--border);}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <a href="#" class="nav-back">← Portfolio</a>
+    <div class="nav-divider"></div>
+    <span class="nav-title">Quilr AI — Work Experience</span>
+  </div>
+  <span class="nav-tag">PM Internship · 2023–2024</span>
+</nav>
+
+<!-- COVER -->
+<div class="cover fade-up">
+  <div class="cover-meta">
+    <span class="cm-tag">Work Experience</span>
+    <span class="cm-sep">·</span>
+    <span class="cm-tag">Product Management Intern</span>
+    <span class="cm-sep">·</span>
+    <span class="cm-tag">AI Cybersecurity</span>
+    <span class="cm-sep">·</span>
+    <span class="cm-tag">2023–2024</span>
+  </div>
+  <h1 class="cover-title">My first product role —<br>building real things, shipping<br>real features, at <em>Quilr AI.</em></h1>
+  <p class="cover-deck">Quilr AI is an end-to-end AI security platform — built to protect organisations from the risks that come with AI adoption. During my internship as a Product Management Intern, I contributed to <strong>four distinct product areas</strong>: building an AI-powered release notes generator from scratch, creating user education materials, conducting competitive analysis for the AI security market, and producing product documentation that shaped how users understood complex features. This page documents everything I built, every decision I made, and what I learned from each.</p>
+  <div class="cover-stats">
+    <div class="cs-item"><div class="cs-label">Company</div><div class="cs-val">Quilr AI</div><div class="cs-sub">AI Security Platform</div></div>
+    <div class="cs-item"><div class="cs-label">My Role</div><div class="cs-val">PM Intern</div><div class="cs-sub">Product + Strategy</div></div>
+    <div class="cs-item"><div class="cs-label">Duration</div><div class="cs-val">2023–2024</div><div class="cs-sub">Full internship</div></div>
+    <div class="cs-item"><div class="cs-label">Contributions</div><div class="cs-val">4 areas</div><div class="cs-sub">Built, researched, shipped</div></div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc fade-up">
+  <div class="toc-inner">
+    <div class="toc-heading">What's inside</div>
+    <div class="toc-list">
+      <a href="#quilr" class="toc-item"><span class="toc-num">01</span> What is Quilr AI?</a>
+      <a href="#rn" class="toc-item"><span class="toc-num">02</span> AI Release Notes Generator</a>
+      <a href="#supademo" class="toc-item"><span class="toc-num">03</span> Supademo User Guides</a>
+      <a href="#competitive" class="toc-item"><span class="toc-num">04</span> Competitive Analysis</a>
+      <a href="#docs" class="toc-item"><span class="toc-num">05</span> Product Documentation</a>
+      <a href="#learnings" class="toc-item"><span class="toc-num">06</span> Key Learnings</a>
+    </div>
+  </div>
+</div>
+
+<div class="article">
+
+  <!-- 01 — WHAT IS QUILR -->
+  <div class="section fade-up" id="quilr">
+    <div class="sec-eyebrow">01 · Company Overview</div>
+    <h2 class="sec-title">What is <em>Quilr AI?</em></h2>
+    <p class="prose-lead">Quilr AI is an end-to-end AI security platform built around a simple but powerful idea: security should protect data, guide users, and close gaps in real time — not after the damage is done.</p>
+    <p class="prose">Most security tools are reactive — they identify threats after they have already happened. Quilr AI is different. It is proactive, using artificial intelligence to identify risks and respond to them in the moment, exactly where users are working. The platform sits at the intersection of two fast-moving forces: the rapid adoption of AI tools across organisations, and the growing complexity of data security threats that this adoption introduces.</p>
+    <p class="prose">As more teams integrate AI tools into their daily workflows, the surface area for security vulnerabilities expands dramatically. A file shared in the wrong context, a prompt that leaks sensitive information, an AI agent with access to the wrong system — these are the risks that traditional security tools were never built to catch. Quilr AI addresses this by building security that moves as fast as the people it protects: <strong>intelligent, contextual, and continuous</strong>.</p>
+    <p class="prose">The product covers the full security lifecycle — from monitoring risky user behaviours and detecting AI-related risks, to enforcing access controls, managing browser extensions, and providing visibility across an organisation's entire AI asset landscape. What makes it genuinely different is that it doesn't just alert — it explains, guides, and enables users to understand and act on security insights without needing a security engineering background.</p>
+
+    <div class="screenshot-block fade-up">
+      <div class="sb-label">Quilr AI · Human Security Dashboard — live product</div>
+      <img src="/mnt/user-data/uploads/R2.jpeg" alt="Quilr AI Release Notes Generator Dashboard" class="screenshot-img"/>
+      <p class="screenshot-caption">The Quilr AI Release Notes Generator Dashboard — showing 58 repositories configured, 123K+ commits tracked, and 100% API calls saved through local data processing. This was one of the core tools I built during my internship.</p>
+    </div>
+
+    <div class="contrib-nav fade-up">
+      <div class="cn-item"><div class="cn-num">Contribution 01</div><div class="cn-title">AI Release Notes Generator</div></div>
+      <div class="cn-item"><div class="cn-num">Contribution 02</div><div class="cn-title">Supademo User Guides</div></div>
+      <div class="cn-item"><div class="cn-num">Contribution 03</div><div class="cn-title">Competitive Analysis</div></div>
+      <div class="cn-item"><div class="cn-num">Contribution 04</div><div class="cn-title">Product Documentation</div></div>
+    </div>
+  </div>
+
+  <!-- 02 — RELEASE NOTES GENERATOR -->
+  <div class="section fade-up" id="rn">
+    <div class="sec-eyebrow">02 · Contribution 1</div>
+    <h2 class="sec-title">AI-Powered Release Notes Generator —<br><em>built from scratch.</em></h2>
+    <p class="prose-lead">Every engineering team ships code. Almost none of them communicate those changes clearly to the people who need to understand them. I was given the problem. I built the solution.</p>
+
+    <div class="subsection">
+      <div class="sub-title">The Problem I Was Solving</div>
+      <p class="prose">Before this tool existed, creating release notes at Quilr AI was entirely manual. An engineer would finish a sprint, look through dozens of commit messages — most of which were terse, technical, and written for other engineers — and try to assemble them into something coherent for a product audience. The process was slow, inconsistent, and deeply dependent on the quality of the original commit messages, which varied enormously. Notes written by one person sounded nothing like notes written by another. The structure changed every release. Non-technical audiences — customers, customer success teams, product stakeholders — frequently couldn't understand what had actually changed or why it mattered to them.</p>
+      <p class="prose">The result was that release notes were either delayed, skipped entirely, or published in a form that created more confusion than clarity. This slowed down release cycles, reduced the quality of product communication, and placed an entirely avoidable burden on developers who should have been building, not writing marketing copy about what they built.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">What I Built — The System Architecture</div>
+      <p class="prose">I designed and built a <strong>RAG-based (Retrieval-Augmented Generation) AI system</strong> that automatically transforms raw GitHub commit data into structured, readable, user-friendly release notes. The system was built with a Java Spring Boot backend and integrated directly with Anthropic's Claude API for the AI generation layer. Here is how each component of the system worked, and why I made the architectural decisions I did.</p>
+    </div>
+
+    <div class="arch-flow fade-up">
+      <div class="af-step">
+        <div class="af-left"><div class="af-layer">Layer 1</div><div class="af-name">Backend Core</div></div>
+        <div class="af-right"><p class="af-desc">Built using <strong>Java Spring Boot</strong> with Apache Maven for dependency management. I designed a set of REST APIs that handled three responsibilities: fetching raw data from GitHub, processing and filtering commit logs, and triggering the AI generation pipeline. The backend was designed as a clean, modular system where each component could be independently updated without breaking the others — a design decision that proved important when we iterated on the AI prompting strategy midway through development.</p></div>
+      </div>
+      <div class="af-step">
+        <div class="af-left"><div class="af-layer">Layer 2</div><div class="af-name">GitHub Integration</div></div>
+        <div class="af-right"><p class="af-desc">Integrated <strong>GitHub REST APIs</strong> to pull commits, pull request titles, descriptions, and associated metadata — author, timestamp, labels, and branch context. Crucially, I also implemented a filtering system that identified and removed low-quality or irrelevant commits before they reached the AI layer. This was important because a significant proportion of commits in any active repository are either internal refactors, test changes, or dependency updates that are meaningless to a product audience. Filtering them out significantly improved the quality of the final output.</p></div>
+      </div>
+      <div class="af-step">
+        <div class="af-left"><div class="af-layer">Layer 3</div><div class="af-name">RAG Pipeline</div></div>
+        <div class="af-right"><p class="af-desc">The most technically interesting part of the system. Rather than sending individual commits directly to the AI model — which would produce fragmented, low-context outputs — I built a <strong>Retrieval-Augmented Generation pipeline</strong> that grouped and structured commits before passing them to the LLM. Commits were clustered by feature, by area of the codebase, and by semantic similarity where applicable. This ensured the AI model received rich, contextually coherent input rather than isolated, disconnected messages. The difference in output quality was dramatic.</p></div>
+      </div>
+      <div class="af-step">
+        <div class="af-left"><div class="af-layer">Layer 4</div><div class="af-name">Claude AI Layer</div></div>
+        <div class="af-right"><p class="af-desc">Used <strong>Anthropic's Claude API</strong> for the generation layer. I designed a specific prompting strategy that defined the Claude model's role as a Product Manager writing release notes — not an engineer documenting code changes. The prompt enforced non-technical language, structured output (New Features, Improvements, Bug Fixes), and a user-impact-focused framing for every generated item. The prompt strategy went through several iterations based on output quality evaluation, and the final version consistently produced clean, readable notes that required minimal editing.</p></div>
+      </div>
+      <div class="af-step">
+        <div class="af-left"><div class="af-layer">Layer 5</div><div class="af-name">Output Layer</div></div>
+        <div class="af-right"><p class="af-desc">The system generated structured release notes in three clearly labelled sections — New Features, Improvements, and Bug Fixes — with consistent formatting across every release. The output was also designed to be <strong>editable by PMs</strong> after generation, so the tool served as an intelligent first draft rather than a locked output. This decision came directly from user feedback during early testing, where PMs wanted AI assistance without giving up editorial control.</p></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Seeing the Output — What the Tool Produced</div>
+      <p class="prose">The screenshots below show the actual output from the Release Notes Generator. What you are looking at is not manually written documentation — it is AI-generated content structured, filtered, and formatted by the system I built. The first screenshot shows the New Features section, covering search and filtering capabilities and OAuth authentication enhancements. The second shows the Technical Changes section, covering architecture updates, database enhancements, and security hardening. The third shows Bug Fixes, covering both system stability issues and user interface problems.</p>
+    </div>
+
+    <div class="screenshot-block fade-up">
+      <div class="sb-label">Release Notes Output · New Features Section</div>
+      <img src="/mnt/user-data/uploads/R1.jpeg" alt="Release Notes Generator Output — New Features" class="screenshot-img"/>
+      <p class="screenshot-caption">Actual output from the AI Release Notes Generator showing the New Features section — covering Search & Filtering capabilities (ORDER BY functionality for Snowflake and Knowledge Graph data sources) and Authentication & OAuth Integration (Google and Microsoft OAuth login, admin consent checking, invite email onboarding). This content was generated automatically from raw commit data — no manual writing required.</p>
+    </div>
+
+    <div class="screenshot-grid fade-up">
+      <div class="sg-item">
+        <div class="sg-label">Technical Changes Section</div>
+        <img src="/mnt/user-data/uploads/R3.jpeg" alt="Release Notes — Technical Changes" class="sg-img"/>
+        <p class="sg-caption">Architecture updates including microservices migration, Kafka-based event streaming, and API gateway deployment — alongside database enhancements covering PostgreSQL, Snowflake, and Neo4j multi-database support. All generated automatically from commit data.</p>
+      </div>
+      <div class="sg-item">
+        <div class="sg-label">Bug Fixes Section</div>
+        <img src="/mnt/user-data/uploads/R4.jpeg" alt="Release Notes — Bug Fixes" class="sg-img"/>
+        <p class="sg-caption">System stability fixes covering memory leaks, API timeout issues, and Kafka consumer errors — plus user interface fixes for white screen loading, table pagination, and dropdown filtering. Categorised and written in user-friendly language automatically.</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">The Transformation — Raw Commits to Human Communication</div>
+      <p class="prose">The most direct way to understand what this tool does is to see the before and after. Raw commit messages are written by engineers for engineers — terse, technical, and often cryptic without context. The system's job was to transform these into something a customer, a customer success manager, or a non-technical product stakeholder could immediately understand and find useful.</p>
+    </div>
+
+    <div class="transform-block fade-up">
+      <div class="tb-header"><div class="tb-title">Raw commits → Release notes: the transformation</div></div>
+      <div class="tb-body">
+        <div class="tb-col">
+          <div class="tbc-label">Input — Raw Commit Messages</div>
+          <div class="tbc-item">"fix token refresh issue"</div>
+          <div class="tbc-item">"added multi workspace support"</div>
+          <div class="tbc-item">"refactor API error handling"</div>
+          <div class="tbc-item">"update db schema for accounts"</div>
+          <div class="tbc-item">"fix white screen on load"</div>
+        </div>
+        <div class="tb-col">
+          <div class="tbc-label">Output — AI-Generated Release Notes</div>
+          <div class="tbc-item out">Introduced multi-workspace support for improved team flexibility and collaboration</div>
+          <div class="tbc-item out">Fixed authentication issues to ensure a smoother, more reliable login experience</div>
+          <div class="tbc-item out">Improved API error handling for better system reliability across all services</div>
+          <div class="tbc-item out">Updated account data structure for faster loading and improved data accuracy</div>
+          <div class="tbc-item out">Resolved application startup issues — the platform now loads consistently</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Challenges I Solved Along the Way</div>
+      <p class="prose">The biggest challenge was <strong>noisy commit data</strong>. In any active codebase, a large proportion of commits are low-quality — "WIP", "fix typo", "temp", "testing" — with no meaningful information content. Sending these to an LLM produced garbage output. My solution was to build a pre-processing filtering layer that scored commits by information density and discarded those that fell below a threshold before they reached the AI layer. This single improvement had the largest impact on output quality of any change I made during development.</p>
+      <p class="prose">The second challenge was <strong>maintaining context</strong>. LLMs given isolated, single-sentence inputs produce shallow, repetitive outputs. By grouping related commits together using the RAG pipeline — clustering by feature area, by PR association, and by semantic similarity — I gave the model enough context to produce genuinely useful summaries that reflected what a release actually contained, rather than a mechanical enumeration of individual changes.</p>
+    </div>
+
+    <div class="tech-row fade-up">
+      <span class="tech-pill primary">Java · Spring Boot</span>
+      <span class="tech-pill primary">Claude API (Anthropic)</span>
+      <span class="tech-pill primary">RAG Architecture</span>
+      <span class="tech-pill primary">GitHub REST APIs</span>
+      <span class="tech-pill">Apache Maven</span>
+      <span class="tech-pill">REST API Design</span>
+      <span class="tech-pill">Prompt Engineering</span>
+      <span class="tech-pill">LLM Integration</span>
+    </div>
+
+    <div class="impact-grid fade-up">
+      <div class="ig-item"><div class="ig-num">70–80%</div><div class="ig-label">Reduction in manual documentation effort per release</div></div>
+      <div class="ig-item"><div class="ig-num">58</div><div class="ig-label">Repositories monitored and processed by the system</div></div>
+      <div class="ig-item"><div class="ig-num">123K+</div><div class="ig-label">Total commits tracked across all repositories</div></div>
+      <div class="ig-item"><div class="ig-num">100%</div><div class="ig-label">API calls saved by processing local Git data</div></div>
+    </div>
+  </div>
+
+  <!-- 03 — SUPADEMO -->
+  <div class="section fade-up" id="supademo">
+    <div class="sec-eyebrow">03 · Contribution 2</div>
+    <h2 class="sec-title">Supademo User Guides —<br><em>because great features deserve to be found.</em></h2>
+    <p class="prose-lead">Building a feature is only half the job. If users don't discover it, don't understand it, and don't adopt it — the feature might as well not exist. My second contribution at Quilr AI was solving exactly this problem.</p>
+
+    <div class="subsection">
+      <div class="sub-title">The Problem with Feature Adoption</div>
+      <p class="prose">Quilr AI is a complex product. The security features it offers — access controls, browser extension monitoring, AI risk dashboards, decision engine configurations — are genuinely powerful, but they are also genuinely difficult for non-security professionals to navigate and understand on their own. The product team regularly shipped new features that users either didn't know existed or didn't know how to use correctly. The consequence was low feature adoption, increased dependence on the support team for basic questions, and a poor onboarding experience for new users who were encountering the product for the first time.</p>
+      <p class="prose">The traditional response to this problem is static documentation — a PDF, a help article, a written guide. The problem with static documentation in a complex product is that it requires users to context-switch: leave the product, find the document, read it, return to the product, and try to apply what they read. Many users never make this journey. They get stuck, they contact support, or they simply don't use the feature at all.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Why I Chose Supademo Over Static Docs</div>
+      <p class="prose">I made a deliberate product decision to use <strong>Supademo</strong> for user education rather than producing traditional written documentation. Supademo creates interactive, click-through product demos — guided walkthroughs that live within the product context and allow users to learn by doing rather than by reading. This choice was not accidental. I had a clear PM rationale for it: interactive demos produce significantly higher engagement and retention than static documents because they reduce the cognitive gap between instruction and action. When a user can click through a demo of exactly the workflow they need to complete, they understand it faster, remember it longer, and are more confident doing it independently.</p>
+      <p class="prose">I also made a deliberate decision to structure the demos around <strong>use cases and outcomes</strong> rather than around features. Instead of building a demo that said "Here is how the Access Controls feature works," I built demos that said "Here is how to set up access controls to prevent your team from copying sensitive data between applications." The difference is significant: one describes a feature, the other solves a user problem. Users who understand the problem their feature solves adopt it far more readily than users who only understand the mechanics of how it works.</p>
+    </div>
+
+    <div class="screenshot-block fade-up">
+      <div class="sb-label">Supademo · Access Control Management — interactive product walkthrough</div>
+      <img src="/mnt/user-data/uploads/1777215245246_image.png" alt="Supademo product walkthrough for Quilr AI Access Controls" class="screenshot-img"/>
+      <p class="screenshot-caption">A Supademo walkthrough I created for Quilr AI's Access Control Management feature — showing how the platform helps organisations prevent employees from copying sensitive data between applications. The interactive demo walks users through the Human Security Dashboard, explaining risky security behaviours, AI risks, device risks, and MFA risks in clear, non-technical language.</p>
+    </div>
+
+    <div class="screenshot-block fade-up">
+      <div class="sb-label">Quilr AI · Human Security Dashboard — product context</div>
+      <img src="/mnt/user-data/uploads/1777215273519_image.png" alt="Quilr AI Human Security Dashboard" class="screenshot-img"/>
+      <p class="screenshot-caption">The actual Quilr AI Human Security Dashboard as shown in the Supademo walkthrough. The dashboard covers AI Risks, Data Risks, Device Risks, MFA Risks, Password Hygiene, and SaaS Risks — with colour-coded severity indicators (Very High to Very Low) and real-time counts of open, acknowledged, and resolved issues. My Supademo walkthroughs helped users understand how to navigate and act on this data without needing security expertise.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">What I Built and the Decisions Behind It</div>
+      <p class="prose">I created a series of interactive feature walkthrough demos and user guide videos covering Quilr AI's most complex and most frequently misunderstood features. Each demo was designed to be short and action-oriented — I kept individual walkthroughs under five minutes, based on the understanding that users who are trying to complete a task do not have time for a comprehensive product tour. They need the specific answer to the specific question they have right now, and they need it quickly.</p>
+      <p class="prose">Each walkthrough was structured around three elements: the problem being solved, the specific actions needed to solve it, and the expected outcome so the user knows when they have done it correctly. This structure — problem, action, outcome — mirrors the mental model users bring to any product interaction and makes the learning experience feel intuitive rather than instructional.</p>
+    </div>
+
+    <div class="insight-box fade-up">
+      <div class="ib-label">PM Decision</div>
+      <div class="ib-text">I chose <strong>interactive demos over static documentation</strong> because static docs require users to context-switch out of the product to learn. Interactive demos keep users in the product context, reduce the gap between learning and doing, and produce measurably higher engagement and feature adoption. The format choice is a product strategy decision, not just a content decision.</div>
+    </div>
+
+    <div class="impact-box fade-up">
+      <div class="imp-label">Impact</div>
+      <div class="imp-text">Improved feature discoverability and onboarding experience for new users. <strong>Reduced dependency on manual support</strong> for basic feature questions. Increased user confidence in navigating complex security workflows independently. Supported faster adoption of newly released features without requiring support team intervention for standard use cases.</div>
+    </div>
+  </div>
+
+  <!-- 04 — COMPETITIVE ANALYSIS -->
+  <div class="section fade-up" id="competitive">
+    <div class="sec-eyebrow">04 · Contribution 3</div>
+    <h2 class="sec-title">Competitive Analysis —<br><em>finding the gap nobody was talking about.</em></h2>
+    <p class="prose-lead">I conducted a comprehensive analysis of the AI security and guardrails ecosystem — not to benchmark Quilr AI against its competitors, but to find the strategic opportunity that none of them had yet claimed.</p>
+
+    <div class="subsection">
+      <div class="sub-title">Why This Analysis Mattered</div>
+      <p class="prose">The AI security market in 2024 was moving fast and fragmenting rapidly. New tools were appearing every month, each claiming to solve a piece of the AI governance puzzle. The challenge for Quilr AI was not a shortage of competition — it was a lack of clarity about where the most important gap in the market actually was. Without a clear view of what competitors were doing and where they were falling short, it was impossible to make confident product positioning decisions.</p>
+      <p class="prose">I was given the task of mapping the competitive landscape and identifying where Quilr AI should focus its energy. The output wasn't just a comparison table — it was a strategic recommendation that influenced the product direction of the company.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">The Market Context I Uncovered</div>
+      <p class="prose">The most important finding from my analysis was not about any individual competitor — it was about a structural gap in how the entire market was thinking about AI security. As organisations increasingly adopt AI agents and multi-tool integrations, modern AI systems rely on something called the <strong>Model Context Protocol (MCP)</strong> to connect AI models with external tools and data sources. MCP is the integration layer — the point at which an AI agent reaches out to a database, a code repository, or an external API to complete a task.</p>
+      <p class="prose">This integration layer introduces a category of security risks that barely any existing tool was addressing: prompt injection attacks that exploit the tool connection, unauthorised tool execution where an AI agent takes an action it was not supposed to, and data leakage as information flows across system boundaries during agent operations. Every competitor I analysed was focused on the LLM layer — the point at which a user interacts with the AI model directly. Almost none were building security at the system level, where the agent actually does its work.</p>
+    </div>
+
+    <table class="comp-table fade-up">
+      <tr>
+        <th>Competitor</th>
+        <th>Focus Area</th>
+        <th>Strength</th>
+        <th>Gap</th>
+      </tr>
+      <tr>
+        <td><strong>Lakera</strong><span class="comp-tag">LLM Guardrails</span></td>
+        <td>Prompt injection detection, output filtering, runtime protection at the model interaction layer</td>
+        <td>Strong at real-time LLM-level protection. Well-integrated with major model providers.</td>
+        <td>Limited to the model layer only. Does not address system-level or agent-level risks at the MCP layer.</td>
+      </tr>
+      <tr>
+        <td><strong>Harmonic Security</strong><span class="comp-tag">Enterprise Governance</span></td>
+        <td>AI governance, data protection, compliance monitoring for enterprise environments</td>
+        <td>Enterprise-grade governance and compliance coverage. Strong data protection framework.</td>
+        <td>Less developer-centric. Limited coverage of MCP-layer and agent-level security risks.</td>
+      </tr>
+      <tr>
+        <td><strong>Palo Alto Networks</strong><span class="comp-tag">Full Lifecycle</span></td>
+        <td>End-to-end AI security covering build-time, runtime, and post-deployment monitoring</td>
+        <td>Comprehensive coverage across the full AI lifecycle. Enterprise-trusted brand.</td>
+        <td>Complex, expensive, enterprise-heavy. Not accessible for developer teams or smaller organisations.</td>
+      </tr>
+      <tr style="background:var(--purple-light);">
+        <td><strong>Gap Identified</strong><span class="comp-tag" style="color:var(--purple);">Opportunity</span></td>
+        <td>MCP Gateway Security Layer — tool access control, policy enforcement, real-time agent monitoring</td>
+        <td>No current solution adequately addresses this layer. First-mover opportunity.</td>
+        <td>This is where <strong>Quilr AI has the highest leverage</strong> to build a defensible, differentiated position.</td>
+      </tr>
+    </table>
+
+    <div class="subsection">
+      <div class="sub-title">My Strategic Recommendations</div>
+      <p class="prose">Based on the analysis, I proposed three strategic directions for Quilr AI's product positioning. First, <strong>build MCP-level guardrails</strong> as a core differentiator — rather than competing on the crowded LLM guardrails layer where Lakera already has a strong position, Quilr AI should focus on the system-level security layer where no competitor has built a comprehensive solution. Second, <strong>develop real-time policy enforcement and monitoring</strong> for AI agent actions — the ability to see, in real time, what an AI agent is doing and stop it before it causes harm. Third, offer <strong>developer-friendly APIs</strong> with enterprise-grade security — bridging the gap between the enterprise-heavy complexity of Palo Alto Networks and the developer-tool simplicity of Lakera.</p>
+      <p class="prose">The strategic positioning I proposed was to frame Quilr AI as <em>"a control layer between AI agents and external tools"</em> — a position that no competitor had explicitly claimed and that addressed the most underserved security concern in the market. This positioning directly influenced how the product team thought about the product roadmap in the months that followed.</p>
+    </div>
+
+    <div class="insight-box fade-up">
+      <div class="ib-label">Key Insight from This Analysis</div>
+      <div class="ib-text">The most valuable competitive analysis is not the one that shows you where competitors are strong — it's the one that shows you <strong>where none of them are building</strong>. The MCP gateway layer was the biggest security gap in the AI ecosystem, and it was almost entirely unaddressed. Identifying that gap gave Quilr AI a clear, defensible product direction that didn't require competing head-to-head with well-resourced incumbents.</div>
+    </div>
+  </div>
+
+  <!-- 05 — DOCUMENTATION -->
+  <div class="section fade-up" id="docs">
+    <div class="sec-eyebrow">05 · Contribution 4</div>
+    <h2 class="sec-title">Product Documentation —<br><em>translating complexity into clarity.</em></h2>
+    <p class="prose-lead">In an AI product, the gap between what a feature does and what a user understands it to do is often enormous. Closing that gap — not with technical language, but with clear, honest, user-centred communication — was the fourth area where I contributed at Quilr AI.</p>
+
+    <div class="subsection">
+      <div class="sub-title">Feature Research — Understanding Before Explaining</div>
+      <p class="prose">Before I could write documentation, I had to deeply understand what I was documenting. I conducted research into two of Quilr AI's most technically complex and most frequently misunderstood product areas: the <strong>Model Context Protocol (MCP)</strong> and <strong>AI Guardrails</strong>.</p>
+      <p class="prose">MCP research focused on understanding how AI models interact with external tools and systems — the tool orchestration layer, how context flows across different workflows, and what the security implications of these interactions are. Guardrails research explored the mechanisms that ensure safe and controlled AI behaviour — prompt filtering, output validation, and policy enforcement systems. Both areas were fast-moving and poorly documented in the broader technical literature at the time, which made the research work genuinely challenging and genuinely valuable.</p>
+      <p class="prose">The output of this research was not just documentation — it was a set of <strong>actionable insights for product direction and feature design</strong>. Understanding how MCP worked at a deep level made it possible to identify where the biggest risks were and therefore where the product should focus its security controls. Research and product strategy were inseparable in this context.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">User-Facing "How-To" Guides</div>
+      <p class="prose">I created structured, step-by-step guides for three of Quilr AI's most commonly used features: Filters, Accounts, and the Controls Dashboard. Each guide was written with a specific philosophy: lead with the problem the user is trying to solve, not with the feature they are trying to use. A guide that starts with "The Controls Dashboard allows you to…" is less useful than one that starts with "When you need to understand which security behaviours in your organisation require immediate action, here is how to use the Controls Dashboard to find them."</p>
+      <p class="prose">Every guide included step-by-step instructions that assumed no prior knowledge of the feature, use-case driven explanations that connected each action to a real-world scenario, and clearly stated expected outcomes so users always knew when they had completed the flow correctly. The goal was to enable users to answer their own questions without opening a support ticket — and the guides were consistently referenced by the customer success team as the first resource they pointed new users toward.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Internal Product Documentation</div>
+      <p class="prose">Beyond user-facing guides, I also developed internal documentation to align the engineering, product, and customer success teams around a shared understanding of how features worked. This internal documentation covered feature functionality in plain language, expected user flows from entry point to outcome, and edge cases and non-obvious usage scenarios that the engineering team had not explicitly communicated.</p>
+      <p class="prose">Internal documentation is often undervalued in product organisations — it doesn't feel as visible as user-facing work, and its impact is harder to measure. But the alternative to good internal documentation is repeated one-on-one conversations, inconsistent product understanding across teams, and customer-facing communication that reflects different versions of the truth. Good internal documentation solves all three problems simultaneously.</p>
+    </div>
+
+    <div class="insight-box fade-up">
+      <div class="ib-label">Core Principle I Applied</div>
+      <div class="ib-text">Throughout all my documentation work, I applied a single consistent principle: explain <strong>why it matters</strong> before explaining how it works. Users who understand the value of a feature adopt it. Users who only understand the mechanics often don't. In a complex AI security product, this distinction is the difference between documentation that sits unread and documentation that actually changes how people use the product.</div>
+    </div>
+
+    <div class="impact-box fade-up">
+      <div class="imp-label">Impact Across All Documentation Work</div>
+      <div class="imp-text">Improved clarity of complex features including MCP and AI guardrails for both internal teams and end users. <strong>Reduced dependency on external support</strong> for standard feature usage. Enabled faster onboarding for new users arriving at the product without a security background. Supported smoother cross-team collaboration between engineering, product, and customer success by establishing a shared, consistent reference point for how features were supposed to work.</div>
+    </div>
+  </div>
+
+  <!-- 06 — LEARNINGS -->
+  <div class="section fade-up" id="learnings">
+    <div class="sec-eyebrow">06 · Reflections</div>
+    <h2 class="sec-title">What I learned —<br><em>from building in a real product environment.</em></h2>
+
+    <div class="subsection">
+      <div class="sub-title">Shipping is the only real test</div>
+      <p class="prose">Every decision I made during the Release Notes Generator project was eventually tested by the same criterion: did the output actually work? I could have spent more time designing an elegant architecture or refining the prompt strategy in theory. But the most valuable learning came from shipping early versions, observing where the output failed, understanding why it failed, and fixing it. The filtering layer that removed noisy commits, the RAG grouping that gave the LLM proper context, the editable output that preserved PM agency — none of these came from the original design. All of them came from seeing real output fail in real ways and responding to it.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Users don't struggle with features — they struggle with understanding why features matter</div>
+      <p class="prose">The Supademo work taught me something I have carried into every product decision since: the biggest barrier to feature adoption is almost never usability. It is relevance. Users who don't understand why a feature exists for them, what problem it solves in their specific context, and what a successful outcome looks like — those users don't adopt the feature regardless of how well-designed it is. Framing every piece of user communication around the problem first changed the effectiveness of the walkthroughs dramatically.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">The most valuable competitive insight is the gap, not the comparison</div>
+      <p class="prose">Most competitive analyses tell you what competitors are doing. The useful question is what they are not doing — and why. My analysis of the AI security market found a gap at the MCP gateway layer that nobody had clearly articulated. That gap became a strategic direction. The ability to look at a market, understand where every player is focusing, and then identify the empty space that none of them are building in — that is the skill I most want to carry forward as a PM.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Working at zero-to-one is uncomfortable and irreplaceable</div>
+      <p class="prose">Quilr AI was not a mature product with established processes when I joined. Features were still being defined. The market was still being understood. Documentation for complex concepts was being written for the first time. Working in that environment — where nothing is finished and everything matters — was uncomfortable in exactly the right way. It forced me to make decisions without complete information, to communicate clearly under ambiguity, and to take ownership of outcomes rather than waiting for someone else to define the path. That experience is not available at companies where everything is already figured out. I am grateful I had it early.</p>
+    </div>
+
+    <div class="synthesis fade-up">
+      <div class="syn-label">What this internship demonstrated</div>
+      <div class="syn-text">I came into Quilr AI as a PM intern and left having built a production AI system, created user education materials used by real customers, shaped competitive product strategy, and written documentation that bridged the gap between engineering and users. Every one of these contributions required <strong>different skills deployed in the same direction</strong>: understanding what users need, deciding what to build, building it, communicating it clearly, and measuring whether it worked. That is product management — and this internship is where I first did it for real.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CLOSING -->
+<div class="closing fade-up">
+  <h2 class="closing-title">Quilr AI gave me my<br>first taste of <em>real product work.</em></h2>
+  <p class="prose" style="max-width:640px;">What I value most about this experience is not any individual project — it is the proof that I can operate across the full breadth of what product management actually requires. I can build technical systems. I can create user communication. I can conduct strategic market analysis. I can write documentation that actually helps people. Done together, in a real product environment, with real users and real outcomes — that is the foundation I am bringing to my next role.</p>
+  <div class="closing-quote">"Building the Release Notes Generator taught me that <strong>the best PM work is invisible to the user</strong> — they just know the product got better. Everything else I built at Quilr AI taught me that <strong>the PM's job is to make that invisible work feel obvious in hindsight.</strong>"</div>
+</div>
+
+<footer>
+  <span class="fn">Swati <strong>Jha</strong> · Quilr AI Work Experience</span>
+  <span class="fc">PM Internship · 2023–2024</span>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => { if(e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 50); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

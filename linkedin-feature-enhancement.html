@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn Feature Enhancement · Swati Jha</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#F8FAFC;
+  --bg2:#F1F5F9;
+  --bg3:#E8EFF7;
+  --ink:#0D1B2A;
+  --ink2:#1A2E45;
+  --body:#2C3E52;
+  --muted:#607A94;
+  --border:#D4DDE8;
+  --border2:#B8C9DB;
+  --blue:#0A66C2;
+  --blue2:#0073B1;
+  --blue-light:#EBF3FB;
+  --blue-mid:rgba(10,102,194,0.08);
+  --blue-border:rgba(10,102,194,0.2);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;font-weight:400;background:var(--bg);color:var(--body);line-height:1.8;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 4rem;border-bottom:1px solid var(--border);background:rgba(248,250,252,0.97);backdrop-filter:blur(16px);}
+.nav-left{display:flex;align-items:center;gap:2rem;}
+.nav-back{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:var(--blue);}
+.nav-divider{width:1px;height:16px;background:var(--border2);}
+.nav-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-style:italic;color:var(--ink2);}
+.nav-tag{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);background:var(--blue-light);padding:0.3rem 0.85rem;border:1px solid var(--blue-border);}
+
+/* COVER */
+.cover{padding:8rem 4rem 5rem;max-width:920px;margin:0 auto;border-bottom:1px solid var(--border);}
+.cover-meta{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap;}
+.cm-tag{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);}
+.cm-sep{color:var(--border2);}
+.cm-brand{display:flex;align-items:center;gap:0.6rem;}
+.li-dot{width:10px;height:10px;border-radius:2px;background:var(--blue);}
+.cm-brand-name{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);font-weight:500;}
+.cover-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:500;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1.75rem;}
+.cover-title em{font-style:italic;color:var(--blue);}
+.cover-deck{font-size:1.05rem;line-height:1.9;color:var(--muted);max-width:700px;margin-bottom:3rem;}
+.cover-deck strong{color:var(--body);font-weight:500;}
+.cover-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);background:var(--bg2);}
+.cs-item{padding:1.5rem 1.75rem;border-right:1px solid var(--border);}
+.cs-item:last-child{border-right:none;}
+.cs-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;}
+.cs-val{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--ink2);}
+.cs-sub{font-size:11px;color:var(--muted);margin-top:0.15rem;}
+
+/* TOC */
+.toc{padding:3rem 4rem;background:var(--bg2);border-bottom:1px solid var(--border);}
+.toc-inner{max-width:920px;margin:0 auto;display:grid;grid-template-columns:180px 1fr;gap:3rem;align-items:start;}
+.toc-heading{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);padding-top:0.2rem;}
+.toc-list{display:grid;grid-template-columns:1fr 1fr;gap:0.4rem 3rem;}
+.toc-item{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:0.75rem;text-decoration:none;transition:color 0.2s;}
+.toc-item:hover{color:var(--blue);}
+.toc-num{font-family:'Playfair Display',serif;font-style:italic;font-size:0.9rem;color:var(--border2);}
+
+/* ARTICLE */
+.article{max-width:920px;margin:0 auto;padding:0 4rem;}
+
+/* SECTION */
+.section{padding:5rem 0;border-bottom:1px solid var(--border);}
+.section:last-child{border-bottom:none;}
+.sec-eyebrow{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;}
+.sec-eyebrow::before{content:'';width:20px;height:1px;background:var(--blue);}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;line-height:1.2;color:var(--ink);letter-spacing:-0.01em;margin-bottom:2rem;}
+.sec-title em{font-style:italic;color:var(--blue);}
+
+/* PROSE */
+p.prose{font-size:0.975rem;line-height:1.95;color:var(--body);margin-bottom:1.5rem;}
+p.prose strong{color:var(--ink2);font-weight:600;}
+p.prose em{color:var(--blue);font-style:normal;}
+.prose-lead{font-family:'Playfair Display',serif;font-size:1.15rem;font-style:italic;line-height:1.75;color:var(--ink2);margin-bottom:2rem;padding-left:1.5rem;border-left:3px solid var(--blue);}
+
+/* SUBSECTION */
+.subsection{margin:2.5rem 0;}
+.sub-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:var(--ink2);margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+.sub-title em{font-style:italic;color:var(--blue);}
+
+/* OUTCOME + INSIGHT BOXES */
+.outcome-box{background:var(--blue-mid);border:1px solid var(--blue-border);border-left:3px solid var(--blue);padding:1.25rem 1.75rem;margin:1.5rem 0;}
+.ob-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);margin-bottom:0.4rem;font-weight:500;}
+.ob-text{font-size:13px;color:var(--body);line-height:1.7;}
+.ob-text strong{color:var(--ink2);font-weight:600;}
+.pm-insight{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--ink2);padding:1.1rem 1.5rem;margin:1.25rem 0;}
+.pi-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink2);margin-bottom:0.3rem;font-weight:600;}
+.pi-text{font-size:13px;color:var(--body);line-height:1.65;}
+.pi-text strong{font-weight:600;color:var(--ink2);}
+
+/* PROBLEM CARDS */
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin:2.5rem 0;}
+.prob-card{background:var(--bg);padding:2rem 2rem;}
+.prob-num{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:0.6rem;font-weight:500;}
+.prob-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:var(--ink2);margin-bottom:0.6rem;}
+.prob-body{font-size:13px;color:var(--muted);line-height:1.7;}
+.prob-impact{font-size:12px;color:var(--blue);margin-top:0.75rem;font-weight:500;}
+
+/* PERSONA */
+.persona-block{background:var(--bg2);border:1px solid var(--border);padding:2.5rem;margin:2rem 0;}
+.pb-header{display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border);}
+.pb-avatar{width:48px;height:48px;border-radius:50%;background:var(--blue-light);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;color:var(--blue);flex-shrink:0;}
+.pb-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:var(--ink2);}
+.pb-role{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-top:0.2rem;}
+.pb-story{font-size:0.95rem;line-height:1.9;color:var(--body);margin-bottom:1.25rem;}
+.pb-story strong{color:var(--ink2);font-weight:600;}
+.pb-modes{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:1.5rem;}
+.pb-mode{background:var(--bg);padding:1.25rem 1.5rem;}
+.pbm-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);margin-bottom:0.4rem;font-weight:500;}
+.pbm-title{font-size:13px;font-weight:500;color:var(--ink2);margin-bottom:0.3rem;}
+.pbm-pain{font-size:12px;color:var(--muted);line-height:1.6;}
+.pb-implication{background:var(--blue-light);border:1px solid var(--blue-border);padding:1rem 1.5rem;font-size:13px;color:var(--body);line-height:1.65;margin-top:1.5rem;}
+.pb-implication strong{color:var(--blue);font-weight:600;}
+
+/* FEATURE BLOCK */
+.feature-block{border:1px solid var(--border);margin:2rem 0;background:var(--bg);}
+.fb-header{background:var(--bg2);padding:1.75rem 2.5rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.fb-left{}
+.fb-eyebrow{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);margin-bottom:0.4rem;font-weight:500;}
+.fb-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;color:var(--ink2);}
+.fb-tags{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start;}
+.fb-tag{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);background:var(--blue-light);padding:0.25rem 0.75rem;border:1px solid var(--blue-border);}
+.fb-body{padding:2.5rem;}
+.fb-section{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin:2rem 0 0.6rem;font-weight:500;}
+.fb-section:first-child{margin-top:0;}
+.fb-prose{font-size:0.95rem;line-height:1.95;color:var(--body);}
+.fb-prose strong{color:var(--ink2);font-weight:600;}
+.fb-metrics{background:var(--bg2);border-top:1px solid var(--border);padding:1.75rem 2.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.fbm-item{}
+.fbm-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem;}
+.fbm-val{font-size:14px;font-weight:600;color:var(--blue);margin-bottom:0.2rem;}
+.fbm-why{font-size:12px;color:var(--muted);line-height:1.55;}
+.fb-experiment{background:var(--blue-mid);border:1px solid var(--blue-border);border-left:3px solid var(--blue);padding:1.25rem 1.75rem;margin-top:1.5rem;}
+.fe-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);margin-bottom:0.4rem;font-weight:500;}
+.fe-text{font-size:13px;color:var(--body);line-height:1.7;}
+.fe-text strong{color:var(--ink2);font-weight:600;}
+
+/* FUNNEL */
+.funnel-section{margin:2.5rem 0;}
+.funnel-stage{margin-bottom:2px;}
+.fs-row{display:flex;align-items:stretch;gap:0;}
+.fs-label{width:200px;flex-shrink:0;padding:1.25rem 1.5rem;background:var(--bg2);border:1px solid var(--border);border-right:none;display:flex;flex-direction:column;justify-content:center;}
+.fs-stage-name{font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:0.2rem;}
+.fs-metric{font-size:11px;color:var(--blue);font-weight:500;}
+.fs-bar-wrap{flex:1;background:var(--bg);border:1px solid var(--border);padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.fs-bar-bg{flex:1;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;}
+.fs-bar-fill{height:100%;border-radius:4px;background:var(--blue);transition:width 0.3s;}
+.fs-desc{font-size:12px;color:var(--muted);min-width:280px;line-height:1.55;}
+.fs-arrow{text-align:center;padding:4px 0;font-size:11px;color:var(--border2);}
+.fs-gap{background:rgba(220,50,50,0.06);border:1px solid rgba(220,50,50,0.15);border-left:3px solid rgba(220,50,50,0.4);padding:0.75rem 1.5rem;margin:2px 0;display:flex;align-items:center;justify-content:space-between;}
+.fsg-label{font-size:11px;color:rgba(180,40,40,0.8);font-weight:500;}
+.fsg-fix{font-size:11px;color:var(--blue);}
+
+/* METRICS DASHBOARD */
+.metrics-dash{margin:2.5rem 0;}
+.md-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:1px;}
+.md-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);}
+.md-cell{background:var(--bg);padding:1.5rem 1.75rem;}
+.md-cell.hl{background:var(--blue-light);}
+.mdc-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.35rem;font-weight:500;}
+.mdc-val{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:400;font-style:italic;color:var(--ink2);line-height:1;margin-bottom:0.2rem;}
+.mdc-val.blue{color:var(--blue);}
+.mdc-sub{font-size:11px;color:var(--muted);line-height:1.5;}
+.md-source{font-size:10px;color:var(--muted);margin-top:1rem;letter-spacing:0.04em;}
+
+/* ROADMAP */
+.roadmap-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);margin:2rem 0;}
+.rm-item{display:grid;grid-template-columns:120px 1fr 180px;gap:2rem;padding:2rem 2.5rem;border-bottom:1px solid var(--border);align-items:start;}
+.rm-item:last-child{border-bottom:none;}
+.rm-phase{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);font-weight:500;}
+.rm-timeline{font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;color:var(--muted);margin-top:0.3rem;}
+.rm-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:var(--ink2);margin-bottom:0.4rem;}
+.rm-desc{font-size:13px;color:var(--muted);line-height:1.65;}
+.rm-impact{font-size:12px;color:var(--blue);font-weight:500;}
+
+/* SYNTHESIS */
+.synthesis{background:var(--ink2);padding:3rem 3.5rem;margin:3rem 0;}
+.syn-label{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1rem;}
+.syn-text{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;line-height:1.75;color:rgba(255,255,255,0.85);}
+.syn-text strong{color:#fff;font-style:normal;}
+
+/* CLOSING */
+.closing{padding:5rem 4rem 6rem;max-width:920px;margin:0 auto;}
+.closing-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:500;line-height:1.2;color:var(--ink);margin-bottom:1.5rem;}
+.closing-title em{font-style:italic;color:var(--blue);}
+.closing-quote{font-family:'Playfair Display',serif;font-size:1.15rem;font-style:italic;line-height:1.8;color:var(--ink2);border-left:3px solid var(--blue);padding:1.5rem 2rem;background:var(--blue-light);margin-top:2rem;}
+.closing-quote strong{font-style:normal;color:var(--blue);}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;}
+.fn{font-family:'Playfair Display',serif;font-size:0.95rem;font-style:italic;color:var(--muted);}
+.fn strong{color:var(--blue);font-style:normal;}
+.fc{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);}
+
+/* FADE */
+.fade-up{opacity:0;transform:translateY(14px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:800px){
+  nav,footer,.closing{padding:1rem 1.5rem;}
+  .cover{padding:6rem 1.5rem 3rem;}
+  .article{padding:0 1.5rem;}
+  .toc{padding:2rem 1.5rem;}
+  .toc-inner,.toc-list,.problem-grid,.pb-modes,.fb-metrics,.md-grid,.md-grid-2,.rm-item{grid-template-columns:1fr;}
+  .cover-stats{grid-template-columns:1fr 1fr;}
+  .cs-item{border-right:none;border-bottom:1px solid var(--border);}
+  .fs-label{width:120px;}
+  .fs-desc{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <a href="#" class="nav-back">← Portfolio</a>
+    <div class="nav-divider"></div>
+    <span class="nav-title">LinkedIn Feature Enhancement</span>
+  </div>
+  <span class="nav-tag">Feature Enhancement · Swati Jha</span>
+</nav>
+
+<!-- COVER -->
+<div class="cover fade-up">
+  <div class="cover-meta">
+    <span class="cm-tag">Feature Enhancement</span>
+    <span class="cm-sep">·</span>
+    <span class="cm-tag">Product Strategy</span>
+    <span class="cm-sep">·</span>
+    <div class="cm-brand"><div class="li-dot"></div><span class="cm-brand-name">LinkedIn</span></div>
+    <span class="cm-sep">·</span>
+    <span class="cm-tag">Swati Jha · 2026</span>
+  </div>
+  <h1 class="cover-title">LinkedIn is the world's largest<br>professional network — and it's<br><em>failing the users it was built for.</em></h1>
+  <p class="cover-deck">With 1.3 billion members and $17.81 billion in annual revenue, LinkedIn dominates professional networking globally. Yet beneath the scale lies a product with <strong>five deeply broken experiences</strong> — a chaotic feed, a job search that fails at the most critical moment, an application void that demoralises job seekers, a creator ecosystem without meaningful monetisation, and a networking layer that produces connections without conversations. This document proposes five product enhancements — each grounded in real user behaviour, each measured by specific metrics — that would transform LinkedIn from a platform people tolerate into one they genuinely love.</p>
+  <div class="cover-stats">
+    <div class="cs-item"><div class="cs-label">Total Members</div><div class="cs-val">1.3B+</div><div class="cs-sub">8.33% YoY growth · 2026</div></div>
+    <div class="cs-item"><div class="cs-label">Monthly Active Users</div><div class="cs-val">310M</div><div class="cs-sub">DAU/MAU ratio: 0.42</div></div>
+    <div class="cs-item"><div class="cs-label">Annual Revenue</div><div class="cs-val">$17.81B</div><div class="cs-sub">FY2025 · 9% YoY growth</div></div>
+    <div class="cs-item"><div class="cs-label">Job Searches / Week</div><div class="cs-val">65M</div><div class="cs-sub">158 applications per second</div></div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc fade-up">
+  <div class="toc-inner">
+    <div class="toc-heading">Contents</div>
+    <div class="toc-list">
+      <a href="#overview" class="toc-item"><span class="toc-num">01</span> Platform Overview</a>
+      <a href="#problems" class="toc-item"><span class="toc-num">02</span> The 5 Broken Experiences</a>
+      <a href="#persona" class="toc-item"><span class="toc-num">03</span> User Persona</a>
+      <a href="#funnel" class="toc-item"><span class="toc-num">04</span> Funnel Analysis</a>
+      <a href="#f1" class="toc-item"><span class="toc-num">05</span> Feature 1 — Interest Feed</a>
+      <a href="#f2" class="toc-item"><span class="toc-num">06</span> Feature 2 — Smart Job Search</a>
+      <a href="#f3" class="toc-item"><span class="toc-num">07</span> Feature 3 — Application Groups</a>
+      <a href="#f4" class="toc-item"><span class="toc-num">08</span> Feature 4 — Creator Channels</a>
+      <a href="#f5" class="toc-item"><span class="toc-num">09</span> Feature 5 — Network Intelligence</a>
+      <a href="#metrics" class="toc-item"><span class="toc-num">10</span> Metrics Dashboard</a>
+      <a href="#roadmap" class="toc-item"><span class="toc-num">11</span> Roadmap + PM Lessons</a>
+    </div>
+  </div>
+</div>
+
+<div class="article">
+
+  <!-- 01 — OVERVIEW -->
+  <div class="section fade-up" id="overview">
+    <div class="sec-eyebrow">01 · Overview</div>
+    <h2 class="sec-title">What is <em>LinkedIn</em> — and what has it become?</h2>
+    <p class="prose-lead">LinkedIn is the world's largest professional networking platform — a digital identity layer for the global workforce, a two-sided job marketplace, a content ecosystem, and an enterprise marketing engine, all operating simultaneously within the same product.</p>
+    <p class="prose">Founded in 2003 and acquired by Microsoft in 2016 for $26.2 billion, LinkedIn has grown from a digital resume repository into a genuinely complex, multi-functional professional ecosystem. At its core, it functions as a structured profile system where users showcase their professional experience, skills, achievements, and career aspirations. But beyond static profiles, LinkedIn has integrated social networking features — content sharing, commenting, messaging, and following — enabling knowledge exchange and personal branding at unprecedented professional scale.</p>
+    <p class="prose">LinkedIn also operates as a <strong>two-sided marketplace</strong>. On one side, job seekers use it to discover opportunities, signal availability, and apply for roles. On the other, recruiters and organisations use it to find talent, post jobs, and evaluate candidates through algorithmic discovery and social proof. Over time, this marketplace has been extended with LinkedIn Learning for professional development, LinkedIn Premium for job seekers and sales professionals, LinkedIn Marketing Solutions for B2B advertisers, and an evolving creator ecosystem for thought leadership and content monetisation.</p>
+    <p class="prose">Despite its extraordinary scale — <strong>1.3 billion members, 310 million monthly active users, $17.81 billion in annual revenue</strong> — LinkedIn's user experience reflects deep tensions between its competing functions. The same platform tries to be a news feed, a job board, a learning platform, a CRM, and a social network simultaneously. These tensions create genuine product failures that users feel every day: a feed that surfaces irrelevant content, a job search that breaks at the most critical moment, an application experience that disappears into silence, a creator layer that rewards volume over depth, and a networking experience that produces connections without conversations. These are not minor inconveniences. They are structural product problems that erode trust, reduce retention, and leave enormous user value on the table.</p>
+  </div>
+
+  <!-- 02 — PROBLEMS -->
+  <div class="section fade-up" id="problems">
+    <div class="sec-eyebrow">02 · Problem Diagnosis</div>
+    <h2 class="sec-title">Five broken experiences<br>hiding inside <em>one platform.</em></h2>
+    <p class="prose">A product as large as LinkedIn does not fail in obvious, dramatic ways. It fails quietly — in the moments where a user expects something and gets nothing. The five problems below are not surface-level annoyances. They are structural failures that affect LinkedIn's most valuable users — the power users who rely on the platform daily for their careers, their content, and their professional relationships.</p>
+
+    <div class="problem-grid">
+      <div class="prob-card">
+        <div class="prob-num">Problem 01</div>
+        <div class="prob-title">The feed is controlled by connections, not by interest</div>
+        <div class="prob-body">LinkedIn's feed is almost entirely driven by who you're connected to — not what you actually care about. If your connections like, comment on, or share something, it appears in your feed regardless of your professional interests. A PM sees sales posts. A designer sees legal updates. There is no secondary feed layer where users can choose the topics — cybersecurity, brand strategy, product management — and get focused, relevant content from the best thinkers in that space, not just from the people they happen to be connected to.</div>
+        <div class="prob-impact">Impact: Low feed relevance → reduced daily engagement → DAU/MAU stickiness suffers</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-num">Problem 02</div>
+        <div class="prob-title">Job search filters are vague, incomplete, and trust-eroding</div>
+        <div class="prob-body">LinkedIn's job search is where 65 million users go every week — and it fails them at the most basic level. Location filters are imprecise, often surfacing jobs in cities the user did not select. There is no salary range filter, meaning users have to apply blindly for roles that may be entirely outside their compensation expectations. Experience level filters are inconsistently applied by job posters, making them unreliable. The result is that users waste enormous time applying for roles that were never right for them — and lose trust in the platform as a job discovery tool.</div>
+        <div class="prob-impact">Impact: Filter failure → wasted applications → declining job seeker trust and return rate</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-num">Problem 03</div>
+        <div class="prob-title">The application black hole destroys job seeker morale</div>
+        <div class="prob-body">LinkedIn Easy Apply is one of the platform's most used features — and one of its most demoralising. With 158 job applications submitted every second on LinkedIn, the system is built for volume but not for visibility. Once a user clicks Easy Apply or comments "Interested" on a hiring post, they enter a void. There is no status tracking, no peer community of fellow applicants, no transparent communication channel with the recruiter. Users have no idea whether their application was seen, shortlisted, or rejected. This silence — not rejection itself — is what erodes confidence and reduces reapplication rates over time.</div>
+        <div class="prob-impact">Impact: Application black hole → low reapplication rate → declining platform loyalty among job seekers</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-num">Problem 04</div>
+        <div class="prob-title">Creators have reach but no sustainable monetisation</div>
+        <div class="prob-body">LinkedIn has a growing creator economy — but it gives creators almost no tools to build sustainable income from their professional expertise. Unlike YouTube or Substack, there is no native channel model, no subscription tier, no way for a creator who posts consistently about product management or brand strategy to convert their audience into a committed, paying community. Creators are locked into the noisy main feed where their content competes with job posts, sales pitches, and viral engagement bait. Their most dedicated followers have no way to signal that commitment or access a more curated experience.</div>
+        <div class="prob-impact">Impact: No creator monetisation → top creators migrate to Substack, YouTube → LinkedIn loses its best content</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-num">Problem 05</div>
+        <div class="prob-title">Connections are made but conversations never happen</div>
+        <div class="prob-body">The average LinkedIn user has approximately 930 connections — but the median is only 400, and research shows that most connections lead to zero meaningful interaction. LinkedIn makes it easy to connect and extremely hard to actually engage. There are no conversation starters based on shared interests, no prompts based on recent activity, no intelligent suggestions about when and why to reach out to a specific connection. The result is a network that looks impressive on paper but functions as a collection of strangers, not a professional community.</div>
+        <div class="prob-impact">Impact: Dead connections → hollow networking → low messaging engagement, declining platform NPS</div>
+      </div>
+      <div class="prob-card" style="background:var(--blue-mid);border:1px solid var(--blue-border);">
+        <div class="prob-num" style="color:var(--ink2);">The Core Tension</div>
+        <div class="prob-title" style="color:var(--ink);">LinkedIn is too many things and not enough of any one of them</div>
+        <div class="prob-body" style="color:var(--body);">Each of these five failures stems from the same root cause: LinkedIn is simultaneously a news feed, a job board, a learning platform, a CRM, and a social network — and it optimises for none of them fully. The five features proposed in this document do not attempt to rebuild LinkedIn. They attempt to close the five most consequential gaps — each targeted at a specific user frustration, each measured by specific metrics, and each designed to make LinkedIn more valuable for the power users who rely on it most.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 — PERSONA -->
+  <div class="section fade-up" id="persona">
+    <div class="sec-eyebrow">03 · User Persona</div>
+    <h2 class="sec-title">The LinkedIn Power User —<br>one person, <em>four broken journeys.</em></h2>
+    <p class="prose">The five features in this document are designed for a single core persona — the LinkedIn Power User. This is not a casual visitor who logs in once a week to accept connection requests. This is someone who uses LinkedIn daily, intentionally, and for multiple purposes simultaneously. They are a job seeker, a content creator, a professional networker, and a learner — all at the same time. And LinkedIn fails them at every one of these touchpoints.</p>
+
+    <div class="persona-block fade-up">
+      <div class="pb-header">
+        <div class="pb-avatar">A</div>
+        <div>
+          <div class="pb-name">Anika Sharma</div>
+          <div class="pb-role">The LinkedIn Power User · 26 · Associate PM · Mumbai</div>
+        </div>
+      </div>
+      <p class="pb-story">Anika opens LinkedIn four to five times a day. She's not passive — she's actively building her career, her network, and her personal brand simultaneously. In the morning, she scrolls her feed looking for industry insights on product management and brand strategy. She usually finds posts from connections she barely knows, sales pitches masquerading as thought leadership, and viral engagement bait that has nothing to do with her professional interests. She filters mentally, finds one or two useful posts, and moves on — slightly more frustrated than when she started.</p>
+      <p class="pb-story">During lunch, she searches for jobs. She's open to new opportunities but has a clear salary range in mind — one she cannot filter for. She spends 25 minutes narrowing down a list using blunt filters, applies to three roles via Easy Apply, and immediately enters a void. She has no idea whether any of those applications reached a human being. She has been doing this for six weeks. She has heard back from exactly one company.</p>
+      <p class="pb-story">In the evenings, she posts her own content — product teardowns, brand observations, PM frameworks. She has 2,400 followers and her posts routinely get 800 to 1,500 impressions. But she has no way to build a dedicated community around this content, no way to monetise it, and no way to separate her serious followers from the passive ones. She also has 847 connections — almost none of whom she has spoken to in the past three months. <strong>LinkedIn knows everything about all of them. It tells her nothing.</strong></p>
+      <div class="pb-modes">
+        <div class="pb-mode">
+          <div class="pbm-label">Mode 1 · Content Consumer</div>
+          <div class="pbm-title">Feed gives her connections, not interests</div>
+          <div class="pbm-pain">She wants PM and brand content. She gets whatever her connections happen to engage with. The gap between what she wants and what she sees grows every week.</div>
+        </div>
+        <div class="pb-mode">
+          <div class="pbm-label">Mode 2 · Job Seeker</div>
+          <div class="pbm-title">Applies into a void with broken filters</div>
+          <div class="pbm-pain">No salary filter. Imprecise location. No application status tracking. Six weeks of searching and she's had one response. She's starting to wonder if the system is working at all.</div>
+        </div>
+        <div class="pb-mode">
+          <div class="pbm-label">Mode 3 · Content Creator</div>
+          <div class="pbm-title">Reach without community or income</div>
+          <div class="pbm-pain">She has an audience that wants more of her thinking. She has no way to serve them a dedicated, curated experience — or to build any financial sustainability from her work.</div>
+        </div>
+        <div class="pb-mode">
+          <div class="pbm-label">Mode 4 · Networker</div>
+          <div class="pbm-title">847 connections, zero conversations</div>
+          <div class="pbm-pain">She's connected to PMs at Zomato, brand managers at L'Oréal, and founders she admires. LinkedIn has never once told her why or when to reach out to any of them.</div>
+        </div>
+      </div>
+      <div class="pb-implication"><strong>PM Implication:</strong> Anika is LinkedIn's highest-value user — she creates content, actively job seeks, networks intentionally, and uses the platform daily. She is also the user LinkedIn is most at risk of losing to Substack, Glassdoor, and niche professional communities. Every one of the five features in this document is designed around her specific failure points.</div>
+    </div>
+  </div>
+
+  <!-- 04 — FUNNEL -->
+  <div class="section fade-up" id="funnel">
+    <div class="sec-eyebrow">04 · Funnel Analysis</div>
+    <h2 class="sec-title">Where LinkedIn's user journey<br>breaks — and <em>why it matters.</em></h2>
+    <p class="prose">LinkedIn's user funnel reveals a platform with extraordinary top-of-funnel reach and deeply inconsistent middle and bottom-of-funnel performance. Users arrive in large numbers. Many register. Far fewer become genuinely active. And the platform loses disproportionate value at exactly the stages where it should be creating the most — active engagement, meaningful job outcomes, and creator retention. The analysis below maps where each breakdown occurs and which of the five proposed features directly addresses it.</p>
+
+    <div class="funnel-section fade-up">
+      <div class="funnel-stage">
+        <div class="fs-row">
+          <div class="fs-label"><div class="fs-stage-name">Awareness</div><div class="fs-metric">1.3B members</div></div>
+          <div class="fs-bar-wrap"><div class="fs-bar-bg"><div class="fs-bar-fill" style="width:100%"></div></div><div class="fs-desc">LinkedIn is universally known among professionals. Awareness is not the problem — it is the strongest part of the funnel by far.</div></div>
+        </div>
+      </div>
+      <div class="fs-arrow">↓</div>
+      <div class="funnel-stage">
+        <div class="fs-row">
+          <div class="fs-label"><div class="fs-stage-name">Registration</div><div class="fs-metric">1.3B profiles</div></div>
+          <div class="fs-bar-wrap"><div class="fs-bar-bg"><div class="fs-bar-fill" style="width:95%"></div></div><div class="fs-desc">Registration rates are high — most professionals see LinkedIn as a professional necessity, especially early in their careers.</div></div>
+        </div>
+      </div>
+      <div class="fs-arrow">↓</div>
+      <div class="funnel-stage">
+        <div class="fs-row">
+          <div class="fs-label"><div class="fs-stage-name">Monthly Active</div><div class="fs-metric">310M MAU</div></div>
+          <div class="fs-bar-wrap"><div class="fs-bar-bg"><div class="fs-bar-fill" style="width:24%"></div></div><div class="fs-desc">Only 24% of registered members are monthly active. 76% of LinkedIn's database is effectively dormant — a massive retention gap.</div></div>
+        </div>
+      </div>
+      <div class="fs-gap"><span class="fsg-label">⚠ Gap 1 — Feed irrelevance drives dormancy. Users register, find the feed unhelpful, and stop returning.</span><span class="fsg-fix">→ Feature 1 fixes this</span></div>
+      <div class="fs-arrow">↓</div>
+      <div class="funnel-stage">
+        <div class="fs-row">
+          <div class="fs-label"><div class="fs-stage-name">Daily Active</div><div class="fs-metric">~134M DAU</div></div>
+          <div class="fs-bar-wrap"><div class="fs-bar-bg"><div class="fs-bar-fill" style="width:43%"></div></div><div class="fs-desc">43% of MAUs return daily — a DAU/MAU ratio of 0.42, improving from 0.38 in 2025 but still behind Instagram (0.50) and Facebook (0.66).</div></div>
+        </div>
+      </div>
+      <div class="fs-arrow">↓</div>
+      <div class="funnel-stage">
+        <div class="fs-row">
+          <div class="fs-label"><div class="fs-stage-name">Job Search</div><div class="fs-metric">65M/week</div></div>
+          <div class="fs-bar-wrap"><div class="fs-bar-bg"><div class="fs-bar-fill" style="width:50%"></div></div><div class="fs-desc">65M users search for jobs weekly — 158 applications per second. High intent, but broken filters create significant drop-off before application.</div></div>
+        </div>
+      </div>
+      <div class="fs-gap"><span class="fsg-label">⚠ Gap 2 — Vague filters cause pre-application drop-off. Users search, can't find the right role, and exit without applying.</span><span class="fsg-fix">→ Feature 2 fixes this</span></div>
+      <div class="fs-arrow">↓</div>
+      <div class="funnel-stage">
+        <div class="fs-row">
+          <div class="fs-label"><div class="fs-stage-name">Application</div><div class="fs-metric">~50% apply</div></div>
+          <div class="fs-bar-wrap"><div class="fs-bar-bg"><div class="fs-bar-fill" style="width:38%"></div></div><div class="fs-desc">Of users who find a relevant role, approximately half complete an application. The other half drop off — often due to time-consuming application flows.</div></div>
+        </div>
+      </div>
+      <div class="fs-gap"><span class="fsg-label">⚠ Gap 3 — Post-application void kills reapplication intent. Silence after Easy Apply is the #1 driver of declining job search activity.</span><span class="fsg-fix">→ Feature 3 fixes this</span></div>
+      <div class="fs-arrow">↓</div>
+      <div class="funnel-stage">
+        <div class="fs-row">
+          <div class="fs-label"><div class="fs-stage-name">Content Creation</div><div class="fs-metric">~1% post weekly</div></div>
+          <div class="fs-bar-wrap"><div class="fs-bar-bg"><div class="fs-bar-fill" style="width:15%"></div></div><div class="fs-desc">Less than 1% of LinkedIn users post content weekly. The platform has a severe content creation gap — most users consume but never contribute.</div></div>
+        </div>
+      </div>
+      <div class="fs-gap"><span class="fsg-label">⚠ Gap 4 — No creator monetisation kills creator motivation. Without financial sustainability, creators migrate to Substack or YouTube.</span><span class="fsg-fix">→ Feature 4 fixes this</span></div>
+      <div class="fs-arrow">↓</div>
+      <div class="funnel-stage">
+        <div class="fs-row">
+          <div class="fs-label"><div class="fs-stage-name">Meaningful Network</div><div class="fs-metric">10-15% reply rate</div></div>
+          <div class="fs-bar-wrap"><div class="fs-bar-bg"><div class="fs-bar-fill" style="width:12%"></div></div><div class="fs-desc">Only 10-15% of LinkedIn DMs get a reply. Connection acceptance rate is 25-30%, but meaningful conversation rate is far lower — most connections never interact.</div></div>
+        </div>
+      </div>
+      <div class="fs-gap"><span class="fsg-label">⚠ Gap 5 — Dead connections = hollow network. Users feel LinkedIn networking is performative, not valuable.</span><span class="fsg-fix">→ Feature 5 fixes this</span></div>
+    </div>
+
+    <div class="pm-insight fade-up">
+      <div class="pi-label">Funnel Insight</div>
+      <div class="pi-text">LinkedIn's funnel does not have an awareness or registration problem. It has a <strong>value delivery problem</strong> — users arrive with high intent and leave without getting what they came for. The five features below each target a specific drop-off point in this funnel. Taken together, they address every major stage where LinkedIn currently fails to convert intent into outcome.</div>
+    </div>
+  </div>
+
+  <!-- FEATURE 1 -->
+  <div class="section fade-up" id="f1">
+    <div class="sec-eyebrow">05 · Feature Enhancement 1</div>
+    <h2 class="sec-title">Interest-Based Discovery Feed —<br><em>follow topics, not just people.</em></h2>
+
+    <div class="feature-block fade-up">
+      <div class="fb-header">
+        <div class="fb-left">
+          <div class="fb-eyebrow">Feature 1 of 5</div>
+          <div class="fb-title">LinkedIn Topics — A Secondary Interest-Driven Feed</div>
+        </div>
+        <div class="fb-tags">
+          <span class="fb-tag">Feed · Discovery</span>
+          <span class="fb-tag">Engagement</span>
+          <span class="fb-tag">Retention</span>
+        </div>
+      </div>
+      <div class="fb-body">
+        <div class="fb-section">The Problem</div>
+        <p class="fb-prose">LinkedIn's main feed is entirely governed by your connection graph. What your connections like, comment on, or share is what you see — regardless of whether it is relevant to your professional interests. A product manager who is connected to 200 sales professionals will see their feed dominated by sales content. A brand strategist connected to engineers will find very little brand or marketing discourse. The algorithm optimises for social proximity, not professional relevance. This creates a fundamental tension: the feed is supposed to keep you informed about your industry, but it actually keeps you informed about what your connections are doing — two very different things. The result is a feed that is noisy, unpredictable, and increasingly irrelevant to the users who need it most.</p>
+
+        <div class="fb-section">What I Would Build</div>
+        <p class="fb-prose">I would introduce a secondary feed layer called <strong>LinkedIn Topics</strong> — accessible via a persistent tab at the top of the feed, sitting alongside the existing "My Network" feed. During onboarding and in settings, users would select up to ten professional topics they want to follow — Product Management, Brand Strategy, Cybersecurity, Growth Marketing, Leadership, AI, Finance, and others. LinkedIn's existing content tagging infrastructure already categorises posts by topic; this feature would surface the highest-quality, most-engaged content within those categories — regardless of whether the creator is in the user's network.</p>
+        <p class="fb-prose">The Topics feed would be ranked by engagement quality within the category, not by social proximity. It would include a mix of posts from connections who post on that topic, posts from non-connections who are recognised as topic authorities (based on consistent posting history, follower growth in the category, and engagement rates), and curated newsletter excerpts from LinkedIn Newsletter authors in the space. Users could toggle between their Connection Feed and their Topics Feed with a single tap — preserving the existing social graph experience while adding a powerful, interest-based discovery layer on top.</p>
+
+        <div class="fb-section">Why LinkedIn — Not Others</div>
+        <p class="fb-prose">Twitter/X has interest-based feeds but lacks the professional context and verified career data that makes professional content trustworthy. Reddit has topic communities but no professional identity layer. LinkedIn has both — 1.3 billion professional profiles with structured career data, plus an existing tagging system for content categories. The combination of professional identity and topic interest is uniquely LinkedIn's to build. No competitor can replicate this without first rebuilding the professional network from scratch.</p>
+
+        <div class="fb-experiment">
+          <div class="fe-label">Experiment Design</div>
+          <div class="fe-text">Run an A/B test with 5% of MAUs: control group sees existing feed only; test group sees Topics tab. Measure feed session length, daily return rate, and content engagement rate (likes + comments + shares per session) at 30 and 60 days. <strong>Success threshold: +15% session length and +20% content engagement rate in the test group.</strong></div>
+        </div>
+      </div>
+      <div class="fb-metrics">
+        <div class="fbm-item"><div class="fbm-label">Primary Metric</div><div class="fbm-val">Daily Return Rate</div><div class="fbm-why">Target: DAU/MAU from 0.42 → 0.50 within 6 months of full rollout</div></div>
+        <div class="fbm-item"><div class="fbm-label">Engagement Metric</div><div class="fbm-val">Feed Session Length</div><div class="fbm-why">Target: +20% average session time for users who adopt Topics tab</div></div>
+        <div class="fbm-item"><div class="fbm-label">Content Metric</div><div class="fbm-val">Content Engagement Rate</div><div class="fbm-why">Target: from 3.85% average → 5%+ for Topics feed content</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURE 2 -->
+  <div class="section fade-up" id="f2">
+    <div class="sec-eyebrow">06 · Feature Enhancement 2</div>
+    <h2 class="sec-title">Smart Job Search + Salary Filter —<br><em>fix the most visited broken page.</em></h2>
+
+    <div class="feature-block fade-up">
+      <div class="fb-header">
+        <div class="fb-left">
+          <div class="fb-eyebrow">Feature 2 of 5</div>
+          <div class="fb-title">LinkedIn Jobs 2.0 — Precise Filters, Salary Transparency, Smart Matching</div>
+        </div>
+        <div class="fb-tags">
+          <span class="fb-tag">Job Search</span>
+          <span class="fb-tag">Trust</span>
+          <span class="fb-tag">Conversion</span>
+        </div>
+      </div>
+      <div class="fb-body">
+        <div class="fb-section">The Problem</div>
+        <p class="fb-prose">Sixty-five million people use LinkedIn job search every week. It is the single most important feature on the platform for the majority of users — and it is broken in three fundamental ways. First, <strong>location filters are imprecise</strong>. A user searching for "Product Manager, Bangalore" routinely sees results in Delhi, Hyderabad, and remote roles with no clear geographic anchor. Second, <strong>there is no salary range filter</strong>. This is not a minor feature gap — it is a core failure. A user applying to roles without knowing whether the compensation range aligns with their expectations is wasting time, energy, and emotional capital on applications that will never convert. Third, <strong>experience level filters are unreliable</strong> because job posters apply them inconsistently. A role labelled "Entry Level" may require three years of experience because the recruiter selected the category incorrectly. These three failures compound each other: users search imprecisely, apply broadly, hear nothing, and lose trust in the platform as a job discovery tool.</p>
+
+        <div class="fb-section">What I Would Build</div>
+        <p class="fb-prose">I would rebuild the Jobs search filter system around three core improvements. The first is <strong>granular, verified location filtering</strong>. Instead of free-text location search, users would select from a structured hierarchy: Country → State → City → Specific Area or Remote. Results would only surface roles that match the selected geography precisely — no more bleed-over from adjacent cities. For remote roles, a separate, clearly labelled toggle would allow users to include or exclude them independently.</p>
+        <p class="fb-prose">The second is a <strong>mandatory salary transparency layer</strong>. LinkedIn would require job posters to provide a salary range when posting a role — a field that is currently optional. Roles posted without a salary range would be flagged visibly in search results with a "Salary not disclosed" label, giving job seekers the information they need to decide whether to invest time in an application. On the user side, a salary range filter (e.g., ₹8–12 LPA, ₹12–20 LPA, ₹20L+) would allow users to see only roles that match their compensation expectations before they begin reading job descriptions. This single change would eliminate the most common source of wasted applications on the platform.</p>
+        <p class="fb-prose">The third is a <strong>LinkedIn-verified experience level tag</strong>. Instead of relying on the job poster's self-selection, LinkedIn's AI would analyse the job description — required years of experience, listed responsibilities, seniority of the reporting structure — and apply its own verified experience level tag. Where the poster's tag and LinkedIn's verified tag differ, both would be shown with a note: "Recruiter tagged as Entry Level · LinkedIn analysis suggests Mid-Level." This gives job seekers critical context that the current system completely withholds.</p>
+
+        <div class="fb-experiment">
+          <div class="fe-label">Experiment Design</div>
+          <div class="fe-text">Pilot the salary transparency requirement for all new job postings in India and the UK for 90 days. Measure: application completion rate (currently estimated at ~50% of search sessions that reach a job page), job seeker return rate, and recruiter satisfaction score. <strong>Success threshold: +15% application completion rate and maintained recruiter posting rate (no significant drop-off from salary disclosure requirement).</strong></div>
+        </div>
+      </div>
+      <div class="fb-metrics">
+        <div class="fbm-item"><div class="fbm-label">Primary Metric</div><div class="fbm-val">Application Completion Rate</div><div class="fbm-why">Target: +15–20% — better filters mean users reach relevant roles faster and apply with higher confidence</div></div>
+        <div class="fbm-item"><div class="fbm-label">Trust Metric</div><div class="fbm-val">Job Search Return Rate</div><div class="fbm-why">Target: +25% — users who find relevant roles return to search again vs abandoning the platform</div></div>
+        <div class="fbm-item"><div class="fbm-label">Quality Metric</div><div class="fbm-val">Application-to-Interview Rate</div><div class="fbm-why">Target: +10% — better role-fit filtering means higher quality applications and better outcomes for both sides</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURE 3 -->
+  <div class="section fade-up" id="f3">
+    <div class="sec-eyebrow">07 · Feature Enhancement 3</div>
+    <h2 class="sec-title">Job Application Groups —<br><em>end the application black hole.</em></h2>
+
+    <div class="feature-block fade-up">
+      <div class="fb-header">
+        <div class="fb-left">
+          <div class="fb-eyebrow">Feature 3 of 5</div>
+          <div class="fb-title">LinkedIn Application Communities — Transparent, Trackable, Connected</div>
+        </div>
+        <div class="fb-tags">
+          <span class="fb-tag">Job Application</span>
+          <span class="fb-tag">Community</span>
+          <span class="fb-tag">Transparency</span>
+        </div>
+      </div>
+      <div class="fb-body">
+        <div class="fb-section">The Problem</div>
+        <p class="fb-prose">With 158 job applications submitted every second on LinkedIn, the platform has an extraordinary volume problem — and it has solved it for recruiters by making applications invisible to job seekers. When a user clicks Easy Apply or comments "Interested" on a hiring post, they enter a complete void. There is no status dashboard, no timeline, no peer community, no feedback loop, and — most often — no response at all. Studies consistently show that the silence following a job application — not the rejection itself — is the primary driver of job seeker demoralisation. Users who apply and hear nothing do not apply again. They stop using the platform for job search, migrate to other tools, and lose trust in LinkedIn as a professional partner at the most vulnerable moment in their career.</p>
+
+        <div class="fb-section">What I Would Build</div>
+        <p class="fb-prose">When a user clicks Easy Apply on a job posting or comments "Interested" on a hiring post, LinkedIn would automatically create a <strong>Job Application Group</strong> — a dedicated, private community space for that specific role. The group would include the hiring recruiter or HR representative, all applicants who applied for that role via LinkedIn, and a structured, real-time communication layer that replaces the current void with genuine transparency.</p>
+        <p class="fb-prose">Inside the Application Group, recruiters would be able to post status updates — "We are reviewing applications," "First round interviews are scheduled," "This role has been filled, thank you for applying" — that reach all applicants simultaneously. Applicants would see a live status timeline for their specific application. They would also be able to connect with other applicants in the group — fellow professionals who share the same career interests and have applied for the same role, making them high-quality potential connections regardless of the hiring outcome.</p>
+        <p class="fb-prose">The group model creates a genuinely new dynamic in professional job searching: <strong>transparency replaces silence, community replaces isolation, and connection replaces disappointment.</strong> A user who is not selected for a role but connects with three other strong candidates through the Application Group has still gained something of lasting professional value. This transforms the application experience from a one-way submission into a two-way professional interaction — something no job platform has built at LinkedIn's scale.</p>
+
+        <div class="fb-section">Why This Works for Recruiters Too</div>
+        <p class="fb-prose">The Application Group model is not just better for job seekers — it is better for recruiters. Instead of managing individual email chains or InMail threads with every applicant, recruiters can broadcast status updates to the entire applicant pool with a single post. Candidate questions are visible to all applicants, reducing repeated inbound messages. The group also serves as an employer brand touchpoint — how a company treats applicants in their Application Group becomes part of their visible reputation on LinkedIn, incentivising more professional and responsive behaviour.</p>
+
+        <div class="fb-experiment">
+          <div class="fe-label">Experiment Design</div>
+          <div class="fe-text">Pilot with 500 job postings across India and Singapore for 60 days. Measure: reapplication rate of users in Application Groups vs control, cross-applicant connection rate, recruiter broadcast adoption rate, and applicant NPS. <strong>Success threshold: +30% reapplication rate and +40% cross-applicant connection rate vs control group.</strong></div>
+        </div>
+      </div>
+      <div class="fb-metrics">
+        <div class="fbm-item"><div class="fbm-label">Primary Metric</div><div class="fbm-val">Reapplication Rate</div><div class="fbm-why">Target: +30% — users who feel informed and connected continue to use LinkedIn for job search rather than abandoning it</div></div>
+        <div class="fbm-item"><div class="fbm-label">Community Metric</div><div class="fbm-val">Cross-Applicant Connections</div><div class="fbm-why">Target: avg 3+ new meaningful connections per application group per user — high-intent, professionally aligned peers</div></div>
+        <div class="fbm-item"><div class="fbm-label">Trust Metric</div><div class="fbm-val">Job Seeker NPS</div><div class="fbm-why">Target: significant lift — being informed and connected transforms the emotional experience of job searching on LinkedIn</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURE 4 -->
+  <div class="section fade-up" id="f4">
+    <div class="sec-eyebrow">08 · Feature Enhancement 4</div>
+    <h2 class="sec-title">Creator Channels + Monetisation —<br><em>give expertise a home.</em></h2>
+
+    <div class="feature-block fade-up">
+      <div class="fb-header">
+        <div class="fb-left">
+          <div class="fb-eyebrow">Feature 4 of 5</div>
+          <div class="fb-title">LinkedIn Channels — Topic-Specific Creator Communities with Subscription Tiers</div>
+        </div>
+        <div class="fb-tags">
+          <span class="fb-tag">Creator Economy</span>
+          <span class="fb-tag">Monetisation</span>
+          <span class="fb-tag">Retention</span>
+        </div>
+      </div>
+      <div class="fb-body">
+        <div class="fb-section">The Problem</div>
+        <p class="fb-prose">LinkedIn has a growing community of professional creators — people who post consistently, have built substantial followings, and generate genuine professional value through their content. But LinkedIn gives these creators almost nothing in return. There is no native channel model, no subscription tier, no way to separate their engaged audience from passive followers, and no financial sustainability from their work. A product manager with 15,000 followers who posts three times a week, generates strong engagement, and is genuinely building the LinkedIn audience of tomorrow has the exact same tools as someone who posts once a month. LinkedIn has no creator economy infrastructure — and as a result, its best creators are slowly migrating their most valuable content to Substack, YouTube, or paid Slack communities where they can build and monetise a dedicated audience.</p>
+
+        <div class="fb-section">What I Would Build</div>
+        <p class="fb-prose">I would introduce <strong>LinkedIn Channels</strong> — a dedicated content layer that sits alongside the main feed but operates independently. Any LinkedIn member with more than 1,000 followers would be eligible to create a Channel focused on a specific professional topic. A Channel is not a LinkedIn Page and it is not a Newsletter — it is a structured community space where a creator publishes long-form content, frameworks, deep dives, and discussion threads specifically for the audience that actively chooses to follow their thinking.</p>
+        <p class="fb-prose">Channels would operate on a two-tier model. The <strong>Free Channel</strong> would be open to any of the creator's followers — they opt in explicitly, signalling genuine interest rather than passive connection. The free tier would include regular posts, weekly discussion threads, and access to the creator's back-catalogue. The <strong>Premium Channel</strong> would be a paid subscription at a price the creator sets — anywhere from ₹99 to ₹999 per month — and would include exclusive content, deeper frameworks, direct Q&A sessions with the creator, and early access to research or workshops. LinkedIn would take a platform fee (analogous to Substack's 10%) and handle all payment infrastructure, discovery, and subscriber management.</p>
+        <p class="fb-prose">Critically, Channel content would not appear in the main LinkedIn feed — it would live in a dedicated "Channels" tab, keeping the main feed clean while giving creators and their dedicated audiences a focused, signal-rich space. This respects the attention of general users while deeply rewarding the creators and followers who want more depth than a feed post can provide.</p>
+
+        <div class="fb-section">Why This Strengthens LinkedIn's Core Business</div>
+        <p class="fb-prose">Creator Channels would not just benefit individual creators — they would strengthen LinkedIn's platform economics in three direct ways. First, they would <strong>increase creator retention</strong>, keeping LinkedIn's most valuable content contributors on the platform rather than migrating to Substack or YouTube. Second, they would <strong>generate new revenue</strong> through platform fees on subscription transactions — a new monetisation stream entirely separate from advertising. Third, they would <strong>increase subscriber engagement</strong> by giving LinkedIn's most active, engaged users a richer reason to spend more time on the platform every week.</p>
+
+        <div class="fb-experiment">
+          <div class="fe-label">Experiment Design</div>
+          <div class="fe-text">Invite 200 LinkedIn creators with 5,000+ followers to pilot LinkedIn Channels for 90 days. Measure: creator retention rate, subscriber conversion (free to paid), average revenue per creator, and platform NPS among channel subscribers. <strong>Success threshold: 60%+ of pilot creators publishing weekly, 5%+ free-to-paid conversion rate, and channel subscribers showing 2x higher DAU than non-subscribers.</strong></div>
+        </div>
+      </div>
+      <div class="fb-metrics">
+        <div class="fbm-item"><div class="fbm-label">Primary Metric</div><div class="fbm-val">Creator Retention Rate</div><div class="fbm-why">Target: +40% — creators with monetisation incentive post more consistently and stay on-platform rather than migrating</div></div>
+        <div class="fbm-item"><div class="fbm-label">Revenue Metric</div><div class="fbm-val">Channel Revenue (Platform Fee)</div><div class="fbm-why">New revenue stream — estimated $500M+ opportunity at scale, derived from 10% fee on creator subscription revenue</div></div>
+        <div class="fbm-item"><div class="fbm-label">Engagement Metric</div><div class="fbm-val">Channel Subscriber DAU</div><div class="fbm-why">Target: 2x higher DAU vs non-subscribers — dedicated audience is the most engaged, highest-retention user segment</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURE 5 -->
+  <div class="section fade-up" id="f5">
+    <div class="sec-eyebrow">09 · Feature Enhancement 5</div>
+    <h2 class="sec-title">Smart Networking Intelligence —<br><em>turn connections into conversations.</em></h2>
+
+    <div class="feature-block fade-up">
+      <div class="fb-header">
+        <div class="fb-left">
+          <div class="fb-eyebrow">Feature 5 of 5</div>
+          <div class="fb-title">LinkedIn Connect — AI-Powered Networking Intelligence</div>
+        </div>
+        <div class="fb-tags">
+          <span class="fb-tag">Networking</span>
+          <span class="fb-tag">AI</span>
+          <span class="fb-tag">Engagement</span>
+        </div>
+      </div>
+      <div class="fb-body">
+        <div class="fb-section">The Problem</div>
+        <p class="fb-prose">The average LinkedIn user has approximately 930 connections — but the median is only 400, skewed heavily by power users with 10,000 or more connections. LinkedIn's own data now acknowledges that quality matters more than quantity, recently recommending an "engagement circle" of 150 to 300 active connections. And yet the platform does almost nothing to help users activate the network they already have. The connection acceptance rate on LinkedIn is 25 to 30%. The DM reply rate is only 10 to 15%. This gap — between the number of connections made and the number of meaningful conversations that result — is the most underdiagnosed problem on the platform. LinkedIn knows everything about every connection a user has: their career history, their recent posts, their mutual contacts, their current role changes, their professional milestones. It almost never uses this knowledge to help users have a better conversation.</p>
+
+        <div class="fb-section">What I Would Build</div>
+        <p class="fb-prose">I would introduce <strong>LinkedIn Connect</strong> — an AI-powered networking intelligence layer that helps users turn their existing connections into active, meaningful professional relationships. The feature would live in a dedicated "Network" tab and operate as a proactive, personalised networking assistant rather than a passive connection directory.</p>
+        <p class="fb-prose">At its core, LinkedIn Connect would surface <strong>connection moments</strong> — specific, timely, contextually relevant reasons to reach out to a connection, generated by LinkedIn's existing data. When a connection gets promoted, it would surface a congratulations prompt with suggested talking points beyond the default "Congrats!" When a connection posts about a topic you care about, it would highlight their post directly in your networking tab with a suggested conversation opener based on your shared professional history. When a connection is hiring in a space you're interested in, it would proactively alert you with context: "Priya at Zomato is hiring PMs — you both worked in consumer products and share 12 mutual connections." These are not generic notifications — they are personalised, contextually intelligent connection opportunities that make reaching out feel natural rather than cold.</p>
+        <p class="fb-prose">Beyond event-driven prompts, LinkedIn Connect would also build a <strong>relationship health score</strong> for each connection — a simple indicator of how active the relationship has been in the past 90 days, based on mutual interactions, shared content engagement, and message exchanges. Connections with declining health scores would be surfaced with a gentle prompt: "You haven't connected with Rahul in 6 months — he recently posted about a project in your industry." This replaces the passive connection directory with an active, intelligent relationship management layer that helps users do the thing LinkedIn was always supposed to do: build real professional relationships, not just a large contact list.</p>
+
+        <div class="fb-section">Why This is Uniquely LinkedIn's to Build</div>
+        <p class="fb-prose">No other platform has the professional graph data, the career history depth, and the verified identity layer that would make this level of contextual intelligence possible. Facebook knows your social connections. LinkedIn knows your professional journey, your skill set, your career trajectory, your industry, and your goals. A networking intelligence layer built on top of that data could be genuinely transformative — not just for individual users, but for LinkedIn's core value proposition as a platform where professional relationships are built and maintained over entire careers.</p>
+
+        <div class="fb-experiment">
+          <div class="fe-label">Experiment Design</div>
+          <div class="fe-text">A/B test with 10% of power users (500+ connections, weekly active): control group sees current People tab; test group sees LinkedIn Connect with AI prompts and relationship health scores. Measure: DM initiation rate, DM reply rate, 30-day connection activation rate (connections with at least one interaction). <strong>Success threshold: +50% DM initiation rate and +25% DM reply rate in the test group vs control.</strong></div>
+        </div>
+      </div>
+      <div class="fb-metrics">
+        <div class="fbm-item"><div class="fbm-label">Primary Metric</div><div class="fbm-val">DM Initiation Rate</div><div class="fbm-why">Target: +50% — contextual prompts make reaching out feel natural, removing the biggest barrier to professional networking</div></div>
+        <div class="fbm-item"><div class="fbm-label">Quality Metric</div><div class="fbm-val">DM Reply Rate</div><div class="fbm-why">Target: 10–15% → 25%+ — contextually relevant outreach receives significantly higher response rates than cold messages</div></div>
+        <div class="fbm-item"><div class="fbm-label">Retention Metric</div><div class="fbm-val">Network Activation Rate</div><div class="fbm-why">Target: 30%+ of connections have at least one meaningful interaction per quarter — up from near-zero today</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10 — METRICS DASHBOARD -->
+  <div class="section fade-up" id="metrics">
+    <div class="sec-eyebrow">10 · Metrics Dashboard</div>
+    <h2 class="sec-title">LinkedIn today — the numbers<br>behind the <em>broken experience.</em></h2>
+    <p class="prose">Every product recommendation in this document is grounded in real platform data. The metrics below represent LinkedIn's current state — the baseline against which the success of each proposed feature would be measured. Understanding where LinkedIn stands today makes the gap between its potential and its reality impossible to ignore.</p>
+
+    <div class="metrics-dash fade-up">
+      <div class="md-grid">
+        <div class="md-cell hl"><div class="mdc-label">Total Members</div><div class="mdc-val blue">1.3B+</div><div class="mdc-sub">8.33% YoY growth · 2026 · 300M new users in 3 years</div></div>
+        <div class="md-cell"><div class="mdc-label">Monthly Active Users</div><div class="mdc-val">310M</div><div class="mdc-sub">Only 24% of total members — 76% of the database is dormant</div></div>
+        <div class="md-cell"><div class="mdc-label">Daily Active Users</div><div class="mdc-val">~134M</div><div class="mdc-sub">DAU/MAU ratio: 0.42 · up from 0.38 in 2025</div></div>
+      </div>
+      <div class="md-grid">
+        <div class="md-cell"><div class="mdc-label">Annual Revenue (FY2025)</div><div class="mdc-val">$17.81B</div><div class="mdc-sub">9% YoY growth · $6.44B from LinkedIn Premium alone</div></div>
+        <div class="md-cell"><div class="mdc-label">Weekly Job Searches</div><div class="mdc-val">65M</div><div class="mdc-sub">158 applications per second · 28M users with #OpenToWork</div></div>
+        <div class="md-cell"><div class="mdc-label">DM Reply Rate</div><div class="mdc-val">10–15%</div><div class="mdc-sub">Connection acceptance: 25–30% · 5 touchpoints needed for conversion</div></div>
+      </div>
+      <div class="md-grid">
+        <div class="md-cell"><div class="mdc-label">Avg Connections / User</div><div class="mdc-val">930</div><div class="mdc-sub">Median: ~400 · LinkedIn recommends "engagement circle" of 150–300</div></div>
+        <div class="md-cell"><div class="mdc-label">Content Engagement Rate</div><div class="mdc-val">3.85%</div><div class="mdc-sub">44% YoY increase · Carousels: 6.60% · Video: 5x more engagement</div></div>
+        <div class="md-cell hl"><div class="mdc-label">India Users</div><div class="mdc-val blue">173M</div><div class="mdc-sub">2nd largest user base globally · fastest growing professional market</div></div>
+      </div>
+      <div class="md-source">Sources: LinkedIn Earnings Reports 2025, ConnectSafely LinkedIn Statistics 2026, DemandSage LinkedIn Statistics 2026, LinkedHelper Demographics 2024, Martal LinkedIn Statistics 2026</div>
+    </div>
+
+    <div class="synthesis fade-up">
+      <div class="syn-label">Metrics Synthesis</div>
+      <div class="syn-text">The data tells a clear story: LinkedIn has extraordinary reach — 1.3 billion members — and deeply inconsistent activation. <strong>76% of its database is dormant. Only 1% of users post weekly. DMs go unanswered 85% of the time.</strong> These are not minor gaps. They are structural failures that each proposed feature directly addresses. The opportunity is not to grow LinkedIn's top of funnel — it is to fix the value delivery at every stage below it.</div>
+    </div>
+  </div>
+
+  <!-- 11 — ROADMAP -->
+  <div class="section fade-up" id="roadmap">
+    <div class="sec-eyebrow">11 · Roadmap + PM Lessons</div>
+    <h2 class="sec-title">Sequencing the work —<br><em>what to build first and why.</em></h2>
+    <p class="prose">The five features in this document are not equal in effort or impact. Some can be shipped quickly and generate immediate, measurable value. Others require deeper infrastructure and longer development cycles. The roadmap below sequences these features based on a simple principle: reduce the most damaging friction first, then build the most ambitious new value on top of a more stable foundation.</p>
+
+    <div class="roadmap-list fade-up">
+      <div class="rm-item">
+        <div><div class="rm-phase">Phase 1 · Quick Win</div><div class="rm-timeline">0–3 months</div></div>
+        <div><div class="rm-title">Smart Job Search + Salary Filter</div><div class="rm-desc">The fastest feature to ship and the one with the most immediate, measurable impact. LinkedIn's job search infrastructure already exists — adding mandatory salary fields and tightening location filters is primarily a policy and UI change, not a major engineering undertaking. And its impact on job seeker trust would be immediate and measurable within the first 30 days.</div></div>
+        <div class="rm-impact">Impact: +15% application completion rate within 60 days</div>
+      </div>
+      <div class="rm-item">
+        <div><div class="rm-phase">Phase 2 · High Impact</div><div class="rm-timeline">3–6 months</div></div>
+        <div><div class="rm-title">Interest-Based Discovery Feed (Topics)</div><div class="rm-desc">LinkedIn's content tagging infrastructure already exists. The Topics feed is primarily an algorithmic and UI build — surfacing existing tagged content in a new, interest-driven layer. This would be the most broadly impactful feature in terms of daily engagement improvement across the entire user base.</div></div>
+        <div class="rm-impact">Impact: DAU/MAU from 0.42 → 0.50 within 6 months</div>
+      </div>
+      <div class="rm-item">
+        <div><div class="rm-phase">Phase 3 · Medium Effort</div><div class="rm-timeline">6–9 months</div></div>
+        <div><div class="rm-title">Job Application Groups</div><div class="rm-desc">Requires building a new group/community layer tied to specific job postings — more complex than the first two features, but the infrastructure is adjacent to LinkedIn's existing Groups product. This feature directly addresses the highest emotional pain point in the job seeker journey and would generate significant NPS improvement for a highly engaged user segment.</div></div>
+        <div class="rm-impact">Impact: +30% reapplication rate · significant job seeker NPS lift</div>
+      </div>
+      <div class="rm-item">
+        <div><div class="rm-phase">Phase 4 · Platform Bet</div><div class="rm-timeline">9–15 months</div></div>
+        <div><div class="rm-title">Smart Networking Intelligence</div><div class="rm-desc">Requires a significant AI/ML build to generate personalised, contextually relevant connection prompts at scale. The data model already exists — LinkedIn has all the signals needed. But building the recommendation and notification system that surfaces the right prompt at the right moment requires meaningful engineering investment.</div></div>
+        <div class="rm-impact">Impact: DM reply rate 10–15% → 25%+ · network activation rate +30%</div>
+      </div>
+      <div class="rm-item">
+        <div><div class="rm-phase">Phase 5 · Long-Term Play</div><div class="rm-timeline">12–18 months</div></div>
+        <div><div class="rm-title">Creator Channels + Monetisation</div><div class="rm-desc">The most complex and highest-ceiling feature. Requires building new payment infrastructure, a subscription management system, a dedicated content layer, and a creator analytics dashboard. This is a strategic platform investment — not a quick win — but its long-term impact on creator retention and new revenue streams makes it the most consequential feature of the five.</div></div>
+        <div class="rm-impact">Impact: $500M+ new revenue opportunity at scale · creator retention +40%</div>
+      </div>
+    </div>
+
+    <div class="subsection fade-up">
+      <div class="sub-title">PM Lessons from this exercise</div>
+      <p class="prose">The most important thing I learned from analysing LinkedIn's product gaps in depth is that the biggest problems are often not technical — they are prioritisation failures. LinkedIn has the data to build personalised networking intelligence. It has the infrastructure to support creator channels. It has the existing Groups product that could easily be extended to Job Application Groups. These are not hard engineering problems. They are product leadership problems: someone decided these features were not worth building yet. Understanding why a product hasn't solved an obvious problem — who benefits from the status quo, what internal incentives create the delay — is just as important as understanding what the solution should look like.</p>
+      <p class="prose">The second lesson is about user trust as a product foundation. Every one of the five features in this document is ultimately about restoring a form of trust that LinkedIn has eroded: trust that the feed will show you something relevant, trust that the job search will surface the right roles, trust that your application will be acknowledged, trust that your content will reach the people who care about it, trust that your network means something. A product that earns back trust at every touchpoint is a product that retains users for decades — not just months.</p>
+    </div>
+
+    <div class="outcome-box fade-up">
+      <div class="ob-label">Final PM Statement</div>
+      <div class="ob-text"><strong>LinkedIn does not have a reach problem. It has a relevance problem.</strong> 1.3 billion members trust it enough to create a profile. Only 310 million trust it enough to return monthly. Only 134 million trust it enough to return daily. The gap between those numbers is the product opportunity — and every feature in this document is designed to close it.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CLOSING -->
+<div class="closing fade-up">
+  <h2 class="closing-title">LinkedIn's opportunity is not<br>to add more features —<br>it's to earn back <em>trust.</em></h2>
+  <p class="prose" style="max-width:660px;">The five enhancements in this document are not disconnected ideas. They form a coherent product strategy: fix the feed so users have a reason to return daily, fix the job search so users can find the right roles, fix the application experience so users feel seen rather than ignored, give creators a sustainable home, and make every connection mean something. Done together, these features do not just improve metrics. They restore LinkedIn's promise as the platform where professional relationships are built and professional careers are grown.</p>
+  <div class="closing-quote">"The gap between LinkedIn's reach and LinkedIn's relevance is the largest untapped product opportunity in professional networking today. <strong>Closing that gap requires not one brilliant feature — but five honest fixes to five broken promises.</strong>"</div>
+</div>
+
+<footer>
+  <span class="fn">Swati <strong>Jha</strong> · LinkedIn Feature Enhancement</span>
+  <span class="fc">Product Strategy · 2026</span>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => { if(e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 50); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
