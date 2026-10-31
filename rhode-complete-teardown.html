@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rhode Brand Teardown — Swati</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Syne:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #F7F4FB;
+    --bg2:      #EFE9F9;
+    --bg3:      #E6DDF5;
+    --ink:      #1C1426;
+    --muted:    rgba(28,20,38,0.5);
+    --faint:    rgba(28,20,38,0.08);
+    --vfaint:   rgba(28,20,38,0.04);
+    --purple:   #6B46A8;
+    --purple2:  #D4B8F0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 3rem;
+    background: rgba(247,244,251,0.94);
+    backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid var(--faint);
+  }
+  .nav-back { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--purple); }
+  .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; font-weight: 300; color: var(--ink); text-decoration: none; }
+  .nav-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.65rem; border: 0.5px solid rgba(107,70,168,0.3); color: var(--purple); }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 4rem;
+    border-bottom: 0.5px solid var(--faint);
+  }
+  .hero-left {
+    padding: 5rem 3rem 4rem 4rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+    border-right: 0.5px solid var(--faint);
+  }
+  .hero-meta { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.65rem; border: 0.5px solid rgba(107,70,168,0.3); color: var(--purple); }
+  .tag-plain { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.65rem; border: 0.5px solid var(--faint); color: var(--muted); }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 6vw, 5.5rem);
+    font-weight: 300; line-height: 0.95; letter-spacing: -0.025em;
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+  }
+  .hero-title em { font-style: italic; color: var(--purple); }
+  .hero-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300; line-height: 1.8; color: var(--muted); max-width: 400px; }
+
+  .hero-right { display: grid; grid-template-rows: 1fr 1fr; background: var(--bg2); }
+  .hero-stats {
+    padding: 3rem;
+    border-bottom: 0.5px solid var(--faint);
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 1.5rem;
+  }
+  .stat { }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--purple); line-height: 1; margin-bottom: 0.3rem; }
+  .stat-label { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
+  .hero-premise {
+    padding: 3rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .premise-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(28,20,38,0.28); margin-bottom: 0.85rem; }
+  .premise-text { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--muted); font-style: italic; }
+
+  /* TOC */
+  .toc {
+    display: grid; grid-template-columns: repeat(6,1fr);
+    border-bottom: 0.5px solid var(--faint);
+  }
+  .toc-item {
+    padding: 1.25rem 1.5rem;
+    border-right: 0.5px solid var(--faint);
+    text-decoration: none; color: var(--muted);
+    transition: background 0.2s, color 0.2s;
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .toc-item:last-child { border-right: none; }
+  .toc-item:hover { background: var(--bg2); color: var(--ink); }
+  .toc-num { font-family: 'Cormorant Garamond', serif; font-size: 0.7rem; color: rgba(107,70,168,0.4); }
+  .toc-label { font-size: 11px; font-weight: 500; line-height: 1.4; }
+
+  /* CONTENT WRAPPER */
+  .content { max-width: 820px; margin: 0 auto; padding: 0 3rem 6rem; }
+
+  /* SECTIONS */
+  .section { padding: 4rem 0; border-bottom: 0.5px solid var(--faint); }
+  .section:last-child { border-bottom: none; }
+  .section-num { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(107,70,168,0.5); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.6rem; }
+  .section-num::before { content: ''; width: 16px; height: 1px; background: var(--purple); opacity: 0.4; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  .section-title em { font-style: italic; color: var(--purple); }
+  .body-text { font-size: 1rem; line-height: 1.95; color: var(--muted); margin-bottom: 1rem; }
+  .body-text:last-child { margin-bottom: 0; }
+  .body-text strong { color: var(--ink); font-weight: 500; }
+
+  /* SUBSECTION */
+  .subsection-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--ink); margin: 2rem 0 0.75rem;
+    padding-top: 1.5rem; border-top: 0.5px solid var(--faint);
+  }
+
+  /* PULLQUOTE */
+  .pullquote {
+    border-left: 2px solid var(--purple);
+    padding: 0.85rem 1.5rem; margin: 2rem 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-style: italic; font-weight: 300; line-height: 1.6; color: var(--ink);
+  }
+
+  /* INSIGHT */
+  .insight { background: var(--bg2); border: 0.5px solid rgba(107,70,168,0.15); padding: 1.25rem 1.5rem; margin: 1.75rem 0; }
+  .insight-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.6rem; }
+  .insight-text { font-size: 13px; line-height: 1.85; color: var(--muted); }
+  .insight-text strong { color: var(--ink); font-weight: 500; }
+
+  /* AUDIENCE SEGMENTS */
+  .segments { display: flex; flex-direction: column; gap: 1px; background: var(--faint); margin: 2rem 0; }
+  .segment { background: var(--bg); padding: 1.25rem 1.5rem; display: grid; grid-template-columns: 160px 1fr; gap: 1.5rem; transition: background 0.2s; }
+  .segment:hover { background: var(--bg2); }
+  .seg-name { font-size: 13px; font-weight: 700; color: var(--ink); padding-top: 2px; }
+  .seg-note { font-size: 11px; color: var(--purple); margin-top: 0.25rem; letter-spacing: 0.03em; }
+  .seg-desc { font-size: 13px; line-height: 1.7; color: var(--muted); }
+
+  /* GENIUS MOVES */
+  .moves { display: flex; flex-direction: column; gap: 1px; background: var(--faint); margin: 2rem 0; }
+  .move { background: var(--bg); padding: 1.5rem; display: grid; grid-template-columns: 56px 1fr; gap: 1.25rem; transition: background 0.2s; }
+  .move:hover { background: var(--bg2); }
+  .move-num { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: rgba(107,70,168,0.15); line-height: 1; }
+  .move-title { font-size: 14px; font-weight: 700; margin-bottom: 0.4rem; color: var(--ink); }
+  .move-desc { font-size: 13px; line-height: 1.75; color: var(--muted); }
+
+  /* POSITIONING GRID */
+  .pos-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: var(--faint); margin: 2rem 0; }
+  .pos-card { background: var(--bg); padding: 1.5rem; }
+  .pos-card-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.6rem; }
+  .pos-card-title { font-size: 13px; font-weight: 700; margin-bottom: 0.4rem; }
+  .pos-card-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  /* INDIA SECTION */
+  .india-banner {
+    background: var(--ink); color: var(--bg);
+    padding: 3rem 3rem; margin: 4rem 0 0;
+  }
+  .india-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(247,244,251,0.3); margin-bottom: 1rem; }
+  .india-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1; letter-spacing: -0.025em; color: var(--bg); margin-bottom: 1rem; }
+  .india-title em { font-style: italic; color: var(--purple2); }
+  .india-premise { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 300; font-style: italic; line-height: 1.8; color: rgba(247,244,251,0.55); max-width: 600px; }
+  .india-premise strong { color: rgba(247,244,251,0.9); font-style: normal; font-weight: 300; }
+
+  .india-moves { display: flex; flex-direction: column; }
+  .india-move { display: grid; grid-template-columns: 80px 1fr; border-bottom: 0.5px solid var(--faint); padding: 2.5rem 0; gap: 2rem; }
+  .india-move:last-child { border-bottom: none; }
+  .india-move-num { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; color: rgba(107,70,168,0.12); line-height: 1; padding-top: 0.4rem; }
+  .india-move-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 0.85rem; }
+  .india-move-title em { font-style: italic; color: var(--purple); }
+  .india-move-body { font-size: 0.95rem; line-height: 1.9; color: var(--muted); margin-bottom: 0.75rem; }
+  .india-move-body strong { color: var(--ink); font-weight: 500; }
+  .india-move-insight { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 11px; letter-spacing: 0.06em; color: var(--purple); background: var(--bg2); padding: 0.4rem 0.85rem; margin-top: 0.5rem; }
+  .india-move-insight::before { content: '→'; }
+
+  /* CAMPAIGN BOX */
+  .campaign { background: var(--bg2); border: 0.5px solid rgba(107,70,168,0.2); padding: 2rem; margin: 1.25rem 0; }
+  .campaign-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.75rem; }
+  .campaign-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; font-weight: 300; color: var(--ink); margin-bottom: 0.85rem; line-height: 1.2; }
+  .campaign-desc { font-size: 13px; line-height: 1.85; color: var(--muted); margin-bottom: 1rem; }
+  .campaign-desc strong { color: var(--ink); font-weight: 500; }
+  .campaign-steps { display: flex; flex-direction: column; gap: 0.5rem; }
+  .campaign-step { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .step-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--purple); flex-shrink: 0; margin-top: 6px; }
+
+  /* CLOSING */
+  .closing { background: var(--ink); padding: 4rem; margin-top: 0; }
+  .closing-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; color: var(--bg); margin-bottom: 1.5rem; }
+  .closing-title em { font-style: italic; color: var(--purple2); }
+  .closing-body { font-size: 1rem; line-height: 1.95; color: rgba(247,244,251,0.5); max-width: 620px; }
+  .closing-body strong { color: rgba(247,244,251,0.85); font-weight: 500; }
+
+  /* FOOTER */
+  footer { padding: 1.5rem 4rem; border-top: 0.5px solid var(--faint); display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: rgba(28,20,38,0.2); letter-spacing: 0.05em; flex-wrap: wrap; gap: 1rem; background: var(--bg2); }
+  .footer-link { color: var(--purple); text-decoration: none; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .footer-link:hover { text-decoration: underline; }
+
+  /* FADE */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 5rem 1.5rem 2rem; border-right: none; }
+    .hero-right { display: none; }
+    .toc { grid-template-columns: repeat(3,1fr); }
+    .content { padding: 0 1.5rem 4rem; }
+    .segment { grid-template-columns: 1fr; gap: 0.5rem; }
+    .india-move { grid-template-columns: 48px 1fr; gap: 1rem; }
+    .india-move-num { font-size: 2.5rem; }
+    .india-banner { padding: 2rem 1.5rem; }
+    .closing { padding: 2.5rem 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; text-align: center; }
+    .pos-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="beauty-fashion.html">← Portfolio</a>
+  <a class="nav-name" href="beauty-fashion.html">Swati Jha</a>
+  <span class="nav-tag">Brand Teardown</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-meta">
+      <span class="tag">Brand Teardown</span>
+      <span class="tag-plain">Beauty</span>
+      <span class="tag-plain">2025</span>
+    </div>
+    <h1 class="hero-title">
+      The Rhode<br>
+      Formula:<br>
+      How Hailey<br>
+      Built a <em>$1B</em><br>
+      Feeling
+    </h1>
+    <p class="hero-sub">A strategic breakdown of how Rhode went from three products and a glazed donut aesthetic to a billion-dollar acquisition — and what it still gets wrong.</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">$1B</div>
+        <div class="stat-label">Acquired by e.l.f. Beauty, 2025</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">10</div>
+        <div class="stat-label">SKUs at time of acquisition</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">$248M</div>
+        <div class="stat-label">Earned Media Value, 2024</div>
+      </div>
+    </div>
+    <div class="hero-premise">
+      <div class="premise-label">The strategic premise</div>
+      <div class="premise-text">"Rhode didn't break into the $580 billion beauty industry. It found the gap nobody else was filling — and made that gap feel like the most desirable place to be."</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <a class="toc-item" href="#origin"><div class="toc-num">01</div><div class="toc-label">Origin Story</div></a>
+  <a class="toc-item" href="#audience"><div class="toc-num">02</div><div class="toc-label">Target Audience</div></a>
+  <a class="toc-item" href="#positioning"><div class="toc-num">03</div><div class="toc-label">Positioning</div></a>
+  <a class="toc-item" href="#identity"><div class="toc-num">04</div><div class="toc-label">Brand Identity</div></a>
+  <a class="toc-item" href="#genius"><div class="toc-num">05</div><div class="toc-label">Genius Moves</div></a>
+  <a class="toc-item" href="#india"><div class="toc-num">06</div><div class="toc-label">Rhode India</div></a>
+</div>
+
+<div class="content">
+
+  <!-- 01 ORIGIN -->
+  <div class="section fade-up" id="origin">
+    <div class="section-num">01 — Origin</div>
+    <h2 class="section-title">A gap hiding <em>in plain sight</em></h2>
+    <p class="body-text">Rhode is a line of curated skincare essentials — formulated for a variety of skin types with high-performance ingredients. Founded by Hailey Bieber in 2022 and later acquired by e.l.f. Beauty in 2025, the brand was designed around the "glazed donut" aesthetic: hydration, skin barrier health, and a dewy finish that looks effortless even when it isn't.</p>
+    <p class="body-text">Hailey had been laying the groundwork for years — posting skincare tutorials, building personal credibility as someone who actually understood skin rather than just selling it. When Rhode launched, it didn't feel like a brand announcement. It felt like a natural extension of who she already was. <strong>Since launch, the brand has wormed its way into the broader cultural conversation</strong> — spawning memes, inspiring song lyrics, and collaborating with Claudia Schiffer and Harris Dickinson.</p>
+    <p class="body-text">What's perhaps most surprising: Rhode accomplished all of this with just 10 skincare and makeup products — sold exclusively through its own website until its recent Sephora debut. In the first 11 days alone, Rhode hit $10 million in sales. The idea had been waiting for someone to execute it.</p>
+    <div class="insight">
+      <div class="insight-label">What I noticed</div>
+      <div class="insight-text">On Rhode's official website, under the About section, Hailey describes how <strong>a personal research obsession turned into a brand</strong>. That authenticity — the founder actually caring about the product — is what separates Rhode from every other celebrity skincare line. It doesn't feel manufactured. It feels discovered.</div>
+    </div>
+  </div>
+
+  <!-- 02 AUDIENCE -->
+  <div class="section fade-up" id="audience">
+    <div class="section-num">02 — Target Audience</div>
+    <h2 class="section-title">She's not buying skincare.<br>She's buying <em>an identity.</em></h2>
+    <p class="body-text">Rhode's audience isn't just "Gen Z women who like skincare." It's a constellation of five distinct segments, each connected by a different thread — aesthetic obsession, beauty loyalty, celebrity fandom, digital culture, or genuine brand belief. Understanding all five is what makes Rhode's community so unusually strong.</p>
+    <p class="body-text">Hailey built a TikTok audience of over <strong>15.7 million</strong> — compare that to e.l.f.'s 3.4 million — and she used that audience deliberately, not just decoratively.</p>
+
+    <div class="segments">
+      <div class="segment">
+        <div>
+          <div class="seg-name">The Aesthetically Driven</div>
+          <div class="seg-note">Ages 24–34 · London, Chicago, Paris</div>
+        </div>
+        <div class="seg-desc">Women who love skincare as aesthetic alignment. They strive for the "clean girl" look and choose Rhode because the brand is inseparable from that identity. They're not just buying a lip treatment — they're buying a visual language.</div>
+      </div>
+      <div class="segment">
+        <div>
+          <div class="seg-name">The Glow-Getters</div>
+          <div class="seg-note">Ages 25–34 · London, Boston, NYC</div>
+        </div>
+        <div class="seg-desc">Skincare-obsessed and beauty-loyal. First to try, first to post, first to drive virality. They shop Sephora and Ulta, already love e.l.f. and Rare Beauty — showing massive brand synergy potential. Rhode's ideal audience for tutorials and GRWM content.</div>
+      </div>
+      <div class="segment">
+        <div>
+          <div class="seg-name">The Day-Ones</div>
+          <div class="seg-note">Ages 25–34 · Hailey's OG fanbase</div>
+        </div>
+        <div class="seg-desc">Grew up listening to Justin Bieber. Emotionally invested in anything the Biebers touch. Even if the product had terrible reviews, they would still buy — which is precisely why e.l.f. is keeping Hailey on as Chief Creative Officer. If she leaves, they leave.</div>
+      </div>
+      <div class="segment">
+        <div>
+          <div class="seg-name">The Multi-Fandom Lifers</div>
+          <div class="seg-note">Ages 18–34 · Gen Z engine</div>
+        </div>
+        <div class="seg-desc">Deeply embedded in online fandom culture. Fluent in K-pop, TikTok creators, and buzz-worthy moments. They follow everyone from Hailey to Kylie to Demi Lovato. Not tied to one celebrity — they turn product drops into viral moments and memes.</div>
+      </div>
+      <div class="segment">
+        <div>
+          <div class="seg-name">The Rhode Core Loyalists</div>
+          <div class="seg-note">Rhode's goldmine</div>
+        </div>
+        <div class="seg-desc">Nearly all follow @SkinByRhode and heavily engage with Hailey's update pages. These are not just fans of Hailey — they fully identify with Rhode's values and aesthetic. They're not customers. They're believers.</div>
+      </div>
+    </div>
+
+    <div class="pullquote">"Rhode doesn't sell skincare. It sells the feeling of effortless, glazed, aspirational womanhood — and that's a much bigger market."</div>
+  </div>
+
+  <!-- 03 POSITIONING -->
+  <div class="section fade-up" id="positioning">
+    <div class="section-num">03 — Brand Positioning</div>
+    <h2 class="section-title">Luxury feel. Accessible price.<br><em>Impossible to ignore.</em></h2>
+    <p class="body-text">Breaking into the $580 billion beauty industry isn't easy — especially when you're up against giants like Fenty and Rare Beauty. But Rhode cracked the code. Not through fame alone, but through <strong>branding mastery</strong>.</p>
+    <p class="body-text">As someone studying brand management and product development, I think Rhode's positioning centres on <strong>"minimalism with performance."</strong> The brand strategically focuses on a streamlined product portfolio of multifunctional, high-efficacy formulations — enabling consumers to achieve results without the complexity of multi-step routines. This resonates strongly with Gen Z and Millennial consumers who increasingly prioritise ingredient transparency, product effectiveness, and simplified routines while still expecting premium-quality experiences.</p>
+    <p class="body-text">Rhode's positioning sits in a sweet spot that most brands never find: premium enough to feel special, affordable enough to actually buy. Products are priced between $16–$38 — far below traditional luxury skincare, far above drugstore. It's aspirational without being exclusionary. <strong>Rhode is a true example of skin-minimalism</strong> — the brand reinforces its core value proposition by offering intuitive, easy-to-integrate products that fit seamlessly into everyday routines. This aligns perfectly with the growing "skinimalism" movement, where consumers favour fewer, more effective products.</p>
+
+    <div class="pos-grid">
+      <div class="pos-card">
+        <div class="pos-card-label">Versus Fenty Skin</div>
+        <div class="pos-card-title">Inclusivity & bold branding</div>
+        <div class="pos-card-desc">Fenty leads with radical shade range and Rihanna's cultural power. Rhode leads with effortless minimalism and routine simplicity. Different lanes entirely.</div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-card-label">Versus Rare Beauty</div>
+        <div class="pos-card-title">Mental health advocacy</div>
+        <div class="pos-card-desc">Rare Beauty built its brand on a cause. Rhode built its brand on an aesthetic. Both are founder-led, but the emotional anchor is completely different.</div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-card-label">Versus The Ordinary</div>
+        <div class="pos-card-title">Science & affordability</div>
+        <div class="pos-card-desc">The Ordinary speaks in percentages and formulas. Rhode speaks in feelings and glazed skin. Same consumer, completely different emotional register.</div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-card-label">Rhode's unique space</div>
+        <div class="pos-card-title">"Affordable luxury with sensory appeal"</div>
+        <div class="pos-card-desc">Aspirational and accessible. Skincare that feels special without breaking the bank. No other major brand owns this exact positioning — and that's the gap Rhode exploited brilliantly.</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-label">Strategic observation</div>
+      <div class="insight-text">Rhode spent only <strong>~11% of revenue on marketing</strong> — versus the 30–50% most DTC beauty brands pour into paid ads. Hailey herself was the demand engine. Every post, every tutorial, every outfit was essentially free media. That's not luck — that's a deliberate choice to build a founder-led brand from day one.</div>
+    </div>
+  </div>
+
+  <!-- 04 IDENTITY -->
+  <div class="section fade-up" id="identity">
+    <div class="section-num">04 — Brand Identity</div>
+    <h2 class="section-title">The aesthetic <em>IS</em> the strategy</h2>
+    <p class="body-text">Rhode's visual world is completely cohesive — soft grays, creams, and pastels with bold, clean typography on their packaging, website, and socials. Their tubes and jars are sleek, simple, and scream modern luxury without being flashy. <strong>It doesn't look like a skincare brand. It looks like a lifestyle you want to live.</strong></p>
+    <p class="body-text">One of the most sophisticated things Rhode does: they shift their Instagram feed's colour palette to match each product drop. Yellow for Pineapple Cleanser. Pink for Jelly Bean Lip Tint. Brown for Cinnamon Roll Lip Tint. White for Barrier Butter. This fluid visual identity makes every launch feel like a curated event — building anticipation and aesthetic continuity simultaneously.</p>
+    <p class="body-text">The tone of voice matches: warm, confident, un-preachy. Product names like Glazing Milk, Cinnamon Roll Lip Tint, and Strawberry Glaze lean into cosy, food-inspired terms instead of clinical skincare jargon. <strong>Their brand voice uses snappy phrases like "Glaze it. Love it. Repeat."</strong> Simple, catchy, memorable. Food-inspired names add warmth and indulgence — making the brand feel approachable in a market full of cold, scientific language.</p>
+
+    <div class="insight">
+      <div class="insight-label">The result</div>
+      <div class="insight-text">A brand that is <strong>instantly recognisable without a logo.</strong> You could strip the name off any Rhode post and still know exactly what brand it is. Their 2024 New York pop-up featured a fully yellow booth for the Pocket Blush drop — matching merchandise, décor, even staff uniforms. That is the highest form of brand identity: total immersive consistency.</div>
+    </div>
+
+    <h3 class="subsection-title">2. Founder-led branding strategy</h3>
+    <p class="body-text">A key pillar of Rhode's growth is its <strong>founder-led branding model</strong> — where Hailey Bieber functions not just as a celebrity endorser but as the core brand ambassador and narrative driver. Unlike most celebrity-backed beauty brands where founder involvement is largely symbolic, Rhode integrates Hailey's personal aesthetic, lifestyle, and beauty philosophy directly into the brand's identity and product storytelling.</p>
+    <p class="body-text">Her widely recognised "clean girl" beauty aesthetic — characterised by luminous skin, minimal makeup, slicked-back hair, and neutral tones — closely aligns with Rhode's visual language and product positioning. This creates strong coherence between the founder's personal brand and the product experience. <strong>Rhode doesn't feel like a brand Hailey endorses. It feels like a brand she lives.</strong></p>
+
+    <h3 class="subsection-title">3. Social media strategy — community and buzz</h3>
+    <p class="body-text">For Rhode, social media isn't just a channel — it's an extension of the brand. From the tone of captions to the aesthetics of tagged content, every element reinforces Rhode's identity: minimalist, intimate, and community-first.</p>
+    <p class="body-text">Rather than spotlighting traditional ads, Rhode amplifies content from real users and aligned creators. <strong>It's not about marketing messages — it's about showing who the brand is through the people who love it.</strong> This user-first approach mirrors Rhode's broader marketing strategy: a blend of authenticity, influencer collaborations, and brand consistency that has helped the brand scale while staying rooted in its original identity.</p>
+
+    <h3 class="subsection-title">4. PR &amp; influencer marketing — targeted hype, not mass gifting</h3>
+    <p class="body-text">Rhode sends products to <strong>handpicked beauty editors and micro-influencers, deliberately avoiding mass gifting.</strong> They send curated packages to beauty editors at top publications, A-list influencers aligned with their aesthetic, and Gen Z micro-creators who genuinely love skincare — not just anyone with a following.</p>
+    <p class="body-text">Their 2023 Krispy Kreme collaboration for the Strawberry Glaze Lip Treatment is a textbook case — themed donuts, co-branded packaging, and organic content generated millions of impressions with zero traditional ads. And the 2024 <strong>Candy Cane Lip Treatment launch</strong>, with a festive red-and-white Instagram feed shift, drove enormous engagement purely through aesthetic anticipation and community excitement. Rhode proves repeatedly that the best PR doesn't feel like PR at all.</p>
+  </div>
+
+  <!-- 05 GENIUS MOVES -->
+  <div class="section fade-up" id="genius">
+    <div class="section-num">05 — Genius Moves</div>
+    <h2 class="section-title">What Rhode did that <em>nobody else did</em></h2>
+
+    <div class="moves">
+      <div class="move">
+        <div class="move-num">01</div>
+        <div>
+          <div class="move-title">The phone case with a lip gloss holder</div>
+          <div class="move-desc">A phone case designed to hold Rhode's Peptide Lip Treatment. Simple idea, insane execution — it vanished in minutes. This wasn't marketing. It was product design as cultural moment. Rhode proved that product thinking and brand thinking are the same thing.</div>
+        </div>
+      </div>
+      <div class="move">
+        <div class="move-num">02</div>
+        <div>
+          <div class="move-title">Hailey started trends, not just rode them</div>
+          <div class="move-desc">The "glazed donut skin" look — Rhode didn't jump on a trend. They created one. Hailey had been posting this aesthetic for years before Rhode launched, building demand she would eventually supply. That's long-game brand building, not reactive marketing.</div>
+        </div>
+      </div>
+      <div class="move">
+        <div class="move-num">03</div>
+        <div>
+          <div class="move-title">Scarcity as strategy — 440,000-person waitlist</div>
+          <div class="move-desc">The Peptide Lip Treatment sold out in 3 days in 2022, leaving a 440,000-person waitlist. In a market full of brands trying to be everything, Rhode chose to be less — and made that feel premium. Only 10 SKUs at acquisition. Every launch felt like an event.</div>
+        </div>
+      </div>
+      <div class="move">
+        <div class="move-num">04</div>
+        <div>
+          <div class="move-title">The Krispy Kreme collab — zero traditional ads</div>
+          <div class="move-desc">The 2023 Strawberry Glaze Lip Treatment × Krispy Kreme campaign — themed donuts, co-branded packaging, organic content — generated millions of impressions with zero paid media. Textbook earned media done right.</div>
+        </div>
+      </div>
+      <div class="move">
+        <div class="move-num">05</div>
+        <div>
+          <div class="move-title">Community over celebrity — 85% non-Hailey media</div>
+          <div class="move-desc">Only 15% of Rhode's earned media value came from posts mentioning Hailey by name. The rest was fans, micro-influencers, and everyday users. Rhode built a community that could carry the brand even without its founder — which is exactly why e.l.f. paid $1 billion for it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end content -->
+
+<!-- INDIA SECTION -->
+<div id="india">
+  <div class="india-banner fade-up">
+    <div class="india-label">Section 06 — The strategic gap &amp; my recommendation</div>
+    <h2 class="india-title">If I Launched<br>Rhode in <em>India</em></h2>
+    <p class="india-premise">
+      Rhode doesn't have an India problem. It has an <strong>India opportunity</strong> — a market of 600 million women, a booming D2C beauty industry, and a Gen Z consumer who is done being sold European beauty standards. The question isn't whether Rhode should come to India. It's whether Rhode is brave enough to show up <strong>differently</strong>.
+    </p>
+  </div>
+
+  <div class="content">
+    <div class="india-moves">
+
+      <div class="india-move fade-up">
+        <div class="india-move-num">01</div>
+        <div>
+          <div class="india-move-title">Lead with flavours that <em>feel familiar</em></div>
+          <p class="india-move-body">Rhode's Peptide Lip Treatment is the hero product — the one that put the brand on the map. But the existing shades and flavours were built for a Western palate. For India, I would launch with <strong>mango and watermelon variants</strong> — not as a gimmick, but as a genuine cultural bridge.</p>
+          <p class="india-move-body">Mango isn't just a flavour in India. It's nostalgia, summer, identity. A brand that understands that will earn trust faster than any billboard. It signals: we didn't just ship our US product here. We thought about you.</p>
+          <div class="india-move-insight">Product localisation that feels cultural, not tokenistic</div>
+        </div>
+      </div>
+
+      <div class="india-move fade-up">
+        <div class="india-move-num">02</div>
+        <div>
+          <div class="india-move-title">Expand the blush range for <em>Indian skin tones</em></div>
+          <p class="india-move-body">Rhode's Pocket Blush is beautiful — but designed for light, cool-toned skin. For Indian consumers with warm, olive, and deeper skin tones, the current range barely shows up. This isn't a minor product tweak. <strong>It's a statement of intent.</strong></p>
+          <p class="india-move-body">Launching with a dedicated India-first shade range — terracottas, burnt coppers, deep berries — tells consumers that Rhode sees them. Not as an afterthought. As the entire point. In a market where beauty brands have spent decades telling Indian women to be lighter, Rhode could be the brand that says the opposite.</p>
+          <div class="india-move-insight">Shade expansion as brand positioning, not just product development</div>
+        </div>
+      </div>
+
+      <div class="india-move fade-up">
+        <div class="india-move-num">03</div>
+        <div>
+          <div class="india-move-title">Find an Indian face —<br><em>not a spokesperson, a soul</em></div>
+          <p class="india-move-body">Hailey Bieber is Rhode's biggest asset internationally. In India, she risks being Rhode's biggest barrier. Aspiration needs to feel attainable — and a white American celebrity selling "effortless skin" to Indian women carries baggage no amount of good PR can undo.</p>
+          <p class="india-move-body">The answer isn't a traditional brand ambassador. It's finding someone who embodies the same energy as Rhode — effortless, confident, real — but who Indian women actually see themselves in. Someone like <strong>Sobhita Dhulipala, Sanya Malhotra,</strong> or a powerful micro-creator with genuine community trust. The face of Rhode India shouldn't be chosen for reach. They should be chosen for <em>resonance.</em></p>
+          <div class="india-move-insight">Cultural representation as a growth strategy, not a checkbox</div>
+        </div>
+      </div>
+
+      <div class="india-move fade-up">
+        <div class="india-move-num">04</div>
+        <div>
+          <div class="india-move-title">The <em>Rhode Charm</em> Campaign</div>
+          <p class="india-move-body">Rhode's phone case was genius because it made a product part of your daily life — visible, wearable, social. For India, I would take that thinking further.</p>
+
+          <div class="campaign">
+            <div class="campaign-label">Campaign concept</div>
+            <div class="campaign-name">"Wear Your Rhode" — #WearYourRhode</div>
+            <div class="campaign-desc">Introduce a limited-edition <strong>Rhode Charm</strong> — a small, chic metal charm attached to the Peptide Lip Treatment that doubles as a jeans accessory, bag charm, or keychain. Beautiful enough to wear. Functional enough to use. Instagrammable enough to post.</div>
+            <div class="campaign-steps">
+              <div class="campaign-step"><div class="step-dot"></div>Launch #WearYourRhode — post a selfie with your Rhode charm on your jeans, your bag, your desk.</div>
+              <div class="campaign-step"><div class="step-dot"></div>Partner with 50 micro-creators across metro and Tier 2 cities — not for reach, but for authenticity.</div>
+              <div class="campaign-step"><div class="step-dot"></div>Release a new charm design every season — collectible, limited, culturally inspired. Spring: a mango. Diwali: a diya.</div>
+              <div class="campaign-step"><div class="step-dot"></div>The charm becomes the conversation starter. Rhode becomes the brand attached to it.</div>
+            </div>
+          </div>
+
+          <div class="india-move-insight">Product as culture, not just commerce</div>
+        </div>
+      </div>
+
+      <div class="india-move fade-up">
+        <div class="india-move-num">05</div>
+        <div>
+          <div class="india-move-title">Don't enter India with a bang.<br>Enter with a <em>community.</em></div>
+          <p class="india-move-body">The biggest mistake global beauty brands make in India is treating it like a market to crack, not a community to earn. They arrive with a massive launch event, a celebrity post, a Sephora shelf — and then wonder why the brand never quite sticks.</p>
+          <p class="india-move-body">Rhode built its international success on community-first growth. The same playbook applies in India — but with an Indian chapter. Before the official launch: <strong>seed products with 200 carefully chosen creators, host intimate skin-talk events in Delhi and Bangalore, build a waitlist that makes people feel like insiders, not customers.</strong></p>
+          <p class="india-move-body">The message Rhode India would stand for: <em>"Not a new beauty standard. A celebration of yours."</em></p>
+          <div class="india-move-insight">Community as the launch strategy, not the afterthought</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="closing fade-up">
+    <h2 class="closing-title">Rhode doesn't need India to survive.<br>But India needs a brand like <em>Rhode to exist.</em></h2>
+    <p class="closing-body">The Indian beauty consumer in 2025 is sophisticated, opinionated, and tired of being an afterthought in global brand strategies. She doesn't want a brand that tolerates her skin tone — she wants one that was built with her in mind. That is the gap Rhode could fill. Not with a copy-paste Western launch, but with the same curiosity and intentionality that made it great in the first place. <strong>The glazed donut can travel. It just needs to learn a few new flavours.</strong></p>
+  </div>
+</div>
+
+<footer>
+  <span>Strategy &amp; analysis by <strong>Swati</strong> · 2025</span>
+  <a class="footer-link" href="beauty-fashion.html">← Back to portfolio</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
